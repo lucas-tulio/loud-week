@@ -75,7 +75,7 @@ public class LoudWeek extends ApplicationAdapter {
 		AIPlayer.render(this);
 		
 		if (cardOnMouse != null) {
-			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth, Gdx.graphics.getHeight() - Gdx.input.getY());
+			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth / 2f, Gdx.graphics.getHeight() - Gdx.input.getY() - Card.cardHeight / 2f);
 		}
 		
 		if (debug) {
