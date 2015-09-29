@@ -1,8 +1,6 @@
 package com.lucasdnd.loudweek.gameplay;
 
 import com.badlogic.gdx.Gdx;
-import com.lucasdnd.loudweek.InputHandler;
-import com.lucasdnd.loudweek.LoudWeek;
 
 public class Board {
 	
@@ -27,25 +25,21 @@ public class Board {
 				slots[i][j] = new Slot(x + Card.cardWidth * i, y + Card.cardHeight * j);
 			}
 		}
+		
+		fieldCardOne = new Slot((marginX - Card.cardWidth) / 2f, marginY + Card.cardHeight);
+		fieldCardTwo = new Slot(Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth / 2f, marginY + Card.cardHeight);
 	}
 	
 	public void update() {
 		
-		LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
-		InputHandler input = game.getInputHandler();
-		
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				
-				// Check if we clicked this guy
-				float y = Gdx.graphics.getHeight() - Gdx.input.getY();
-				if (input.leftMouseJustClicked &&
-						Gdx.input.getX() >= slots[i][j].getX() && Gdx.input.getX() <= slots[i][j].getX() + Card.cardWidth &&
-						y >= slots[i][j].getY() && y <= slots[i][j].getY() + Card.cardHeight) {
-					slots[i][j].update();
-				}
+				slots[i][j].update();
 			}
 		}
+		
+		fieldCardOne.update();
+		fieldCardTwo.update();
 	}
 	
 	public void render() {
@@ -54,5 +48,8 @@ public class Board {
 				slots[i][j].render();
 			}
 		}
+		
+		fieldCardOne.render();
+		fieldCardTwo.render();
 	}
 }

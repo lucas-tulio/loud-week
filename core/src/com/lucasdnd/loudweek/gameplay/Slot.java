@@ -26,15 +26,18 @@ public class Slot {
 	
 	public void update() {
 		
+		if (gotLeftClicked() == false) {
+			return;
+		}
+		
 		LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
-		InputHandler input = game.getInputHandler();
 		
 		if (game.getCardOnMouse() == null && card != null) {
 			// Picking up a card
 			game.setCardOnMouse(card);
 			card = null;
 			return;
-		} else if (card == null && input.leftMouseJustClicked) {
+		} else if (card == null) {
 			// Dropping a card on the board
 			card = game.getCardOnMouse();
 			game.setCardOnMouse(null);
@@ -51,8 +54,20 @@ public class Slot {
 		} else {
 			card.render(x, y);
 		}
+		
+		font.drawWhiteFont("x: " + x, x, y + Card.cardHeight, true);
+		font.drawWhiteFont("y: " + y, x, y + Card.cardHeight - 20f, true);
 	}
 
+	private boolean gotLeftClicked() {
+		LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
+		InputHandler input = game.getInputHandler();
+		float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+		return (input.leftMouseJustClicked &&
+				Gdx.input.getX() >= x && Gdx.input.getX() <= x + Card.cardWidth &&
+				mouseY >= y && mouseY <= y + Card.cardHeight);
+	}
+	
 	public float getX() {
 		return x;
 	}
