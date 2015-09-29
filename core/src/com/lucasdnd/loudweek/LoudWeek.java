@@ -2,15 +2,18 @@ package com.lucasdnd.loudweek;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.lucasdnd.loudweek.gameplay.Board;
 import com.lucasdnd.loudweek.gameplay.Card;
+import com.lucasdnd.loudweek.gameplay.Player;
+import com.lucasdnd.loudweek.gameplay.Player.Position;
 
 public class LoudWeek extends ApplicationAdapter {
 	
 	public static final String GAME_NAME = "Besdiário";
 	public static final String VERSION = "v0.1.0";
-	private boolean debug = true;
+	public static boolean debug = true;
 	
 	FontUtils font;
 	
@@ -20,6 +23,7 @@ public class LoudWeek extends ApplicationAdapter {
 	// Game objects
 	private Board board;
 	private Card cardOnMouse;
+	private Player humanPlayer, AIPlayer;
 	
 	@Override
 	public void create () {
@@ -29,13 +33,26 @@ public class LoudWeek extends ApplicationAdapter {
 		inputHandler = new InputHandler();
 		Gdx.input.setInputProcessor(inputHandler);
 		
+		humanPlayer = new Player(Position.lowerRight);
+		AIPlayer = new Player(Position.upperLeft);
+		
 		board = new Board();
-		cardOnMouse = new Card(Resources.get().abeelha);
+	}
+	
+	private void handleInput() {
+		if (Gdx.input.isKeyJustPressed(Keys.F3)) {
+			debug = !debug;
+		}
 	}
 	
 	public void update() {
 		
+		handleInput();
+		
 		board.update();
+		
+		humanPlayer.update();
+		AIPlayer.update();
 		
 		if (cardOnMouse != null) {
 			cardOnMouse.update();
@@ -54,12 +71,23 @@ public class LoudWeek extends ApplicationAdapter {
 		
 		board.render();
 		
+		humanPlayer.render();
+		AIPlayer.render();
+		
 		if (cardOnMouse != null) {
 			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth, Gdx.graphics.getHeight() - Gdx.input.getY());
 		}
 		
 		if (debug) {
-//			font.drawWhiteFont("left: " + inputHandler.leftMouseJustClicked, 0f, Gdx.graphics.getHeight(), false);
+			font.drawWhiteFont("mouseX: " + Gdx.input.getX(), 0f, Gdx.graphics.getHeight() - 0f, false);
+			font.drawWhiteFont("mouseY: " + Gdx.input.getY(), 0f, Gdx.graphics.getHeight() - 20f, false);
+			
+			font.drawWhiteFont("x: " + humanPlayer.getX(), 0f, Gdx.graphics.getHeight() - 40f, false);
+			font.drawWhiteFont("y: " + humanPlayer.getY(), 0f, Gdx.graphics.getHeight() - 60f, false);
+			font.drawWhiteFont("fullHandWidth: " + humanPlayer.getFullHandWidth(), 0f, Gdx.graphics.getHeight() - 80f, false);
+			font.drawWhiteFont("cardHeight: " + Card.cardHeight, 0f, Gdx.graphics.getHeight() - 100f, false);
+			font.drawWhiteFont("mouse over hand: " + humanPlayer.isMouseOverHand(), 0f, Gdx.graphics.getHeight() - 140f, false);
+			font.drawWhiteFont("hoverCardId: " + humanPlayer.getHoverCardId(), 0f, Gdx.graphics.getHeight() - 180f, false);
 		}
 	}
 	

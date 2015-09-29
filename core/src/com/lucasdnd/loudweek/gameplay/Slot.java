@@ -55,8 +55,10 @@ public class Slot {
 			card.render(x, y);
 		}
 		
-		font.drawWhiteFont("x: " + x, x, y + Card.cardHeight, true);
-		font.drawWhiteFont("y: " + y, x, y + Card.cardHeight - 20f, true);
+		if (LoudWeek.debug) {
+			font.drawWhiteFont("x: " + x, x, y + Card.cardHeight, true);
+			font.drawWhiteFont("y: " + y, x, y + Card.cardHeight - 20f, true);
+		}
 	}
 
 	private boolean gotLeftClicked() {
