@@ -24,13 +24,11 @@ public class Slot {
 		card = null;
 	}
 	
-	public void update() {
+	public void update(LoudWeek game) {
 		
-		if (gotLeftClicked() == false) {
+		if (gotLeftClicked(game) == false) {
 			return;
 		}
-		
-		LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
 		
 		if (game.getCardOnMouse() == null && card != null) {
 			// Picking up a card
@@ -61,8 +59,7 @@ public class Slot {
 		}
 	}
 
-	private boolean gotLeftClicked() {
-		LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
+	private boolean gotLeftClicked(LoudWeek game) {
 		InputHandler input = game.getInputHandler();
 		float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		return (input.leftMouseJustClicked &&

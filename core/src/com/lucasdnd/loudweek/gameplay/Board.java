@@ -1,6 +1,7 @@
 package com.lucasdnd.loudweek.gameplay;
 
 import com.badlogic.gdx.Gdx;
+import com.lucasdnd.loudweek.LoudWeek;
 
 public class Board {
 	
@@ -30,16 +31,16 @@ public class Board {
 		fieldCardTwo = new Slot(Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth / 2f, marginY + Card.cardHeight);
 	}
 	
-	public void update() {
+	public void update(LoudWeek game) {
 		
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				slots[i][j].update();
+				slots[i][j].update(game);
 			}
 		}
 		
-		fieldCardOne.update();
-		fieldCardTwo.update();
+		fieldCardOne.update(game);
+		fieldCardTwo.update(game);
 	}
 	
 	public void render() {

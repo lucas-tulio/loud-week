@@ -40,7 +40,7 @@ public class LoudWeek extends ApplicationAdapter {
 	}
 	
 	private void handleInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.F3)) {
+		if (Gdx.input.isKeyJustPressed(Keys.D)) {
 			debug = !debug;
 		}
 	}
@@ -49,10 +49,10 @@ public class LoudWeek extends ApplicationAdapter {
 		
 		handleInput();
 		
-		board.update();
+		board.update(this);
 		
-		humanPlayer.update();
-		AIPlayer.update();
+		humanPlayer.update(this);
+		AIPlayer.update(this);
 		
 		if (cardOnMouse != null) {
 			cardOnMouse.update();
@@ -71,8 +71,8 @@ public class LoudWeek extends ApplicationAdapter {
 		
 		board.render();
 		
-		humanPlayer.render();
-		AIPlayer.render();
+		humanPlayer.render(this);
+		AIPlayer.render(this);
 		
 		if (cardOnMouse != null) {
 			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth, Gdx.graphics.getHeight() - Gdx.input.getY());

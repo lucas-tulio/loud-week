@@ -51,14 +51,13 @@ public class Player {
 		font = new FontUtils();
 	}
 	
-	public void update() {
+	public void update(LoudWeek game) {
 		
 		if (position != Position.lowerRight) {
 			return;
 		}
 		
 		// Check if a card was clicked
-		LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
 		InputHandler input = game.getInputHandler();
 		
 		// Mouse over will zoom the card in
@@ -91,7 +90,7 @@ public class Player {
 		}
 	}
 	
-	public void render() {
+	public void render(LoudWeek game) {
 		
 		if (position == Position.upperLeft) {
 
@@ -103,7 +102,6 @@ public class Player {
 		} else {
 			
 			// Player's hand
-			LoudWeek game = (LoudWeek)Gdx.app.getApplicationListener();
 			for (int i = hand.size() - 1; i >= 0; i--) {
 				if (mouseOverHand == false || game.getCardOnMouse() != null) {
 					hand.get(i).render(x + (cardOffsetX * i), y);
