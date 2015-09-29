@@ -3,8 +3,8 @@ package com.lucasdnd.loudweek;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.lucasdnd.loudweek.gameplay.Board;
+import com.lucasdnd.loudweek.gameplay.Card;
 
 public class LoudWeek extends ApplicationAdapter {
 	
@@ -12,24 +12,66 @@ public class LoudWeek extends ApplicationAdapter {
 	public static final String VERSION = "v0.1.0";
 	private boolean debug = true;
 	
-	// Graphics
-	private SpriteBatch batch;
-	private Texture abeelha, emptyCard;
+	FontUtils font;
+	
+	// Input
+	private InputHandler inputHandler;
+	
+	// Game objects
+	private Board board;
+	private Card cardOnMouse;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		abeelha = Resources.get().abeelha;
-		emptyCard = Resources.get().emptyCard;
+		
+		font = new FontUtils();
+		
+		inputHandler = new InputHandler();
+		Gdx.input.setInputProcessor(inputHandler);
+		
+		board = new Board();
+		cardOnMouse = new Card(Resources.get().abeelha);
+	}
+	
+	public void update() {
+		
+		board.update();
+		
+		if (cardOnMouse != null) {
+			cardOnMouse.update();
+		}
+		
+		inputHandler.refreshMouseClicks();
 	}
 
 	@Override
 	public void render () {
+		
+		this.update();
+		
 		Gdx.gl.glClearColor(145f / 255f, 158f / 255f, 132f / 255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(abeelha, 0, 0);
-		batch.draw(emptyCard, 100, 200);
-		batch.end();
+		
+		board.render();
+		
+		if (cardOnMouse != null) {
+			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth, Gdx.graphics.getHeight() - Gdx.input.getY());
+		}
+		
+		if (debug) {
+//			font.drawWhiteFont("left: " + inputHandler.leftMouseJustClicked, 0f, Gdx.graphics.getHeight(), false);
+		}
+	}
+	
+	public InputHandler getInputHandler() {
+		return inputHandler;
+	}
+	
+	public Card getCardOnMouse() {
+		return cardOnMouse;
+	}
+	
+	public void setCardOnMouse(Card card) {
+		this.cardOnMouse = card;
 	}
 }
