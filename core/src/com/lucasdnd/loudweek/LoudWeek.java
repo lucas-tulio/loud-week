@@ -13,7 +13,7 @@ public class LoudWeek extends ApplicationAdapter {
 	
 	public static final String GAME_NAME = "Besdiário";
 	public static final String VERSION = "v0.1.0";
-	public static boolean debug = true;
+	public static boolean debug = false;
 	
 	FontUtils font;
 	
