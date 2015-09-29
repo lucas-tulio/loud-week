@@ -113,7 +113,7 @@ public class Player {
 			}
 			
 			// Hovered card pops out
-			if (mouseOverHand && game.getCardOnMouse() == null) {
+			if (mouseOverHand && game.getCardOnMouse() == null && hoveredCardId < hand.size()) {
 				Card hoveredCard = hand.get(hoveredCardId);
 				hoveredCard.render(x + (cardOffsetX * hoveredCardId), y + 20f);
 			}
