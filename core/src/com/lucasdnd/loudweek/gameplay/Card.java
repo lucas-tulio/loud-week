@@ -5,6 +5,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Card {
 	
+	private String name = "";
+	private String text = "";
+	private int strength = 0;
+	private int defense = 0;
+	private int agility = 0;
+	private int life = 0;
+	
+	private int element = 0;
+	private int type = 0;
+	
 	private SpriteBatch batch;
 	private Texture texture;
 	
