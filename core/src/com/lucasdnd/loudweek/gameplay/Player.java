@@ -23,7 +23,6 @@ public class Player {
 	
 	FontUtils font;
 	
-	
 	// Position on the screen
 	private int position;
 	public class Position {
@@ -31,14 +30,32 @@ public class Player {
 		public static final int lowerRight = 1;
 	}
 	
+	// Game stuff
+	private boolean isHuman = false;
+	
 	public Player(int position) {
+		
 		this.position = position;
+		if (position == Position.lowerRight) {
+			isHuman = true;
+		}
+		
 		hand = new LinkedList<Card>();
-		hand.add(new Card(Resources.get().abeelha));
-		hand.add(new Card(Resources.get().emptyCard));
-		hand.add(new Card(Resources.get().abeelha));
-		hand.add(new Card(Resources.get().emptyCard));
-		hand.add(new Card(Resources.get().abeelha));
+		
+		if (isHuman) {
+			hand.add(new Card(Resources.get().abeelha1));
+			hand.add(new Card(Resources.get().abeelha2));
+			hand.add(new Card(Resources.get().abeelha1));
+			hand.add(new Card(Resources.get().abeelha2));
+			hand.add(new Card(Resources.get().abeelha1));
+		} else {
+			hand.add(new Card(Resources.get().cardBack));
+			hand.add(new Card(Resources.get().cardBack));
+			hand.add(new Card(Resources.get().cardBack));
+			hand.add(new Card(Resources.get().cardBack));
+			hand.add(new Card(Resources.get().cardBack));
+		}
+		
 		
 		if (position == Position.upperLeft) {
 			x = 0f;
@@ -92,15 +109,8 @@ public class Player {
 	
 	public void render(LoudWeek game) {
 		
-		if (position == Position.upperLeft) {
+		if (isHuman) {
 
-			// Opponent's hand
-			for (int i = 0; i < hand.size(); i++) {
-				hand.get(i).render(x + (cardOffsetX * i), y);
-			}
-			
-		} else {
-			
 			// Player's hand
 			for (int i = hand.size() - 1; i >= 0; i--) {
 				if (mouseOverHand == false || game.getCardOnMouse() != null) {
@@ -114,6 +124,13 @@ public class Player {
 			if (mouseOverHand && game.getCardOnMouse() == null && hoveredCardId < hand.size()) {
 				Card hoveredCard = hand.get(hoveredCardId);
 				hoveredCard.render(x + (cardOffsetX * hoveredCardId), y + 20f);
+			}
+			
+		} else {
+			
+			// Opponent's hand
+			for (int i = 0; i < hand.size(); i++) {
+				hand.get(i).render(x + (cardOffsetX * i), y);
 			}
 		}
 	}
