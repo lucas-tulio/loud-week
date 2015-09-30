@@ -18,8 +18,8 @@ public class Card {
 	private SpriteBatch batch;
 	private Texture texture;
 	
-	public final static int cardWidth = 141;
-	public final static int cardHeight = 181;
+	public final static int cardWidth = 168;
+	public final static int cardHeight = 216;
 	
 	public Card(Texture texture) {
 		batch = new SpriteBatch();
