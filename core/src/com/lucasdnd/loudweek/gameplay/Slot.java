@@ -103,6 +103,8 @@ public class Slot {
 				}
 			}
 			
+			// Pass Turn
+			game.getMatch().passTurn();
 		}
 	}
 	
@@ -118,11 +120,6 @@ public class Slot {
 			sr.end();
 		} else {
 			card.render(x, y);
-		}
-		
-		if (LoudWeek.debug) {
-			font.drawWhiteFont("x: " + x, x, y + Card.cardHeight, true);
-			font.drawWhiteFont("y: " + y, x, y + Card.cardHeight - 20f, true);
 		}
 	}
 

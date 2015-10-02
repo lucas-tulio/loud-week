@@ -62,7 +62,7 @@ public class LoudWeek extends ApplicationAdapter {
 		
 		inputHandler.refreshMouseClicks();
 	}
-
+	
 	@Override
 	public void render () {
 		
@@ -80,16 +80,11 @@ public class LoudWeek extends ApplicationAdapter {
 			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth / 2f, Gdx.graphics.getHeight() - Gdx.input.getY() - Card.cardHeight / 2f);
 		}
 		
+		match.render();
+		
 		if (debug) {
-			font.drawWhiteFont("mouseX: " + Gdx.input.getX(), 0f, Gdx.graphics.getHeight() - 0f, false);
-			font.drawWhiteFont("mouseY: " + Gdx.input.getY(), 0f, Gdx.graphics.getHeight() - 20f, false);
-			
-			font.drawWhiteFont("x: " + humanPlayer.getX(), 0f, Gdx.graphics.getHeight() - 40f, false);
-			font.drawWhiteFont("y: " + humanPlayer.getY(), 0f, Gdx.graphics.getHeight() - 60f, false);
-			font.drawWhiteFont("fullHandWidth: " + humanPlayer.getFullHandWidth(), 0f, Gdx.graphics.getHeight() - 80f, false);
-			font.drawWhiteFont("cardHeight: " + Card.cardHeight, 0f, Gdx.graphics.getHeight() - 100f, false);
-			font.drawWhiteFont("mouse over hand: " + humanPlayer.isMouseOverHand(), 0f, Gdx.graphics.getHeight() - 140f, false);
-			font.drawWhiteFont("hoverCardId: " + humanPlayer.getHoverCardId(), 0f, Gdx.graphics.getHeight() - 180f, false);
+			font.drawWhiteFont("player turn: " + match.isHumanPlayerturn(), 0f, Gdx.graphics.getHeight() - 0f, false);
+			font.drawWhiteFont("ai ticks: " + match.getAiTicks(), 0f, Gdx.graphics.getHeight() - 20f, false);
 		}
 	}
 	

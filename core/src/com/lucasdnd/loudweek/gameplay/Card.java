@@ -73,13 +73,13 @@ public class Card {
 			
 			// Border
 			if (played) {
-				shapeRenderer.begin(ShapeType.Line);
+				shapeRenderer.begin(ShapeType.Filled);
 				if (humanOwner) {
 					shapeRenderer.setColor(Color.BLUE);
 				} else {
 					shapeRenderer.setColor(Color.RED);
 				}
-				shapeRenderer.rect(x, y, cardWidth, cardHeight);
+				shapeRenderer.rect(x + cardWidth / 4f + cardWidth / 8f, y + cardHeight / 4f + cardHeight / 8f, cardWidth / 4f, cardHeight / 4f);
 				shapeRenderer.end();
 			}
 			

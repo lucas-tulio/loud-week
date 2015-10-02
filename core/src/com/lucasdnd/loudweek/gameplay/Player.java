@@ -73,9 +73,10 @@ public class Player {
 			return;
 		}
 		
+		// Human player action
+		
 		if (game.getMatch().isHumanPlayerturn()) {
 		
-			// Check if a card was clicked
 			InputHandler input = game.getInputHandler();
 			
 			// Mouse over will zoom the card in
