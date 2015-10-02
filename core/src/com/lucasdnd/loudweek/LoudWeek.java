@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.lucasdnd.loudweek.gameplay.Board;
 import com.lucasdnd.loudweek.gameplay.Card;
+import com.lucasdnd.loudweek.gameplay.Match;
 import com.lucasdnd.loudweek.gameplay.Player;
 import com.lucasdnd.loudweek.gameplay.Player.Position;
 
@@ -21,9 +22,10 @@ public class LoudWeek extends ApplicationAdapter {
 	private InputHandler inputHandler;
 	
 	// Game objects
+	private Match match;
 	private Board board;
 	private Card cardOnMouse;
-	private Player humanPlayer, AIPlayer;
+	private Player humanPlayer, aiPlayer;
 	
 	@Override
 	public void create () {
@@ -34,7 +36,8 @@ public class LoudWeek extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(inputHandler);
 		
 		humanPlayer = new Player(Position.lowerRight);
-		AIPlayer = new Player(Position.upperLeft);
+		aiPlayer = new Player(Position.upperLeft);
+		match = new Match(humanPlayer, aiPlayer);
 		
 		board = new Board();
 	}
@@ -49,10 +52,9 @@ public class LoudWeek extends ApplicationAdapter {
 		
 		handleInput();
 		
+		// Game Objects
 		board.update(this);
-		
-		humanPlayer.update(this);
-		AIPlayer.update(this);
+		match.update(this);
 		
 		if (cardOnMouse != null) {
 			cardOnMouse.update();
@@ -72,7 +74,7 @@ public class LoudWeek extends ApplicationAdapter {
 		board.render();
 		
 		humanPlayer.render(this);
-		AIPlayer.render(this);
+		aiPlayer.render(this);
 		
 		if (cardOnMouse != null) {
 			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth / 2f, Gdx.graphics.getHeight() - Gdx.input.getY() - Card.cardHeight / 2f);
@@ -101,5 +103,9 @@ public class LoudWeek extends ApplicationAdapter {
 	
 	public void setCardOnMouse(Card card) {
 		this.cardOnMouse = card;
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 }

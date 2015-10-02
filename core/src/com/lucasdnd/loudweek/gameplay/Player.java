@@ -43,19 +43,18 @@ public class Player {
 		hand = new LinkedList<Card>();
 		
 		if (isHuman) {
-			hand.add(new Card(Resources.get().abeelha1));
-			hand.add(new Card(Resources.get().abeelha2));
-			hand.add(new Card(Resources.get().abeelha1));
-			hand.add(new Card(Resources.get().abeelha2));
-			hand.add(new Card(Resources.get().abeelha1));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
 		} else {
-			hand.add(new Card(Resources.get().cardBack));
-			hand.add(new Card(Resources.get().cardBack));
-			hand.add(new Card(Resources.get().cardBack));
-			hand.add(new Card(Resources.get().cardBack));
-			hand.add(new Card(Resources.get().cardBack));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
 		}
-		
 		
 		if (position == Position.upperLeft) {
 			x = 0f;

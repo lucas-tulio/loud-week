@@ -10,13 +10,17 @@ import com.lucasdnd.loudweek.LoudWeek;
 
 public class Slot {
 	
+	private int boardX, boardY;
+	
 	private ShapeRenderer sr;
 	private FontUtils font;
 	
 	private float x, y;
 	private Card card;
 	
-	public Slot(float x, float y) {
+	public Slot(int boardX, int boardY, float x, float y) {
+		this.boardX = boardX;
+		this.boardY = boardY;
 		this.x = x;
 		this.y = y;
 		font = new FontUtils();
@@ -30,16 +34,78 @@ public class Slot {
 			return;
 		}
 		
-		if (game.getCardOnMouse() == null && card != null) {
-			// Picking up a card
-			game.setCardOnMouse(card);
-			card = null;
-			return;
-		} else if (card == null) {
+//		if (game.getCardOnMouse() == null && card != null) {
+//			// Picking up a card
+//			game.setCardOnMouse(card);
+//			card = null;
+//			return;
+//		} else
+		if (card == null) {
+		
 			// Dropping a card on the board
 			card = game.getCardOnMouse();
+			card.setPlayed(true);
 			game.setCardOnMouse(null);
-			return;
+			
+			// Get the cards around it
+			Slot leftSlot, rightSlot, upSlot, downSlot;
+			
+			// Defense
+			int left = boardX - 1;
+			if (left >= 0) {
+				leftSlot = game.getBoard().getSlots()[left][boardY];
+				Card vsCard = leftSlot.getCard();
+				if (vsCard != null) {
+					if (card.getDefense() > vsCard.getDefense()) {
+						vsCard.setHumanOwner(true);
+					} else if (card.getDefense() < vsCard.getDefense()) {
+						vsCard.setHumanOwner(false);
+					}
+				}
+			}
+			
+			// Strength
+			int right = boardX + 1;
+			if (right < 3) {
+				rightSlot = game.getBoard().getSlots()[right][boardY];
+				Card vsCard = rightSlot.getCard();
+				if (vsCard != null) {
+					if (card.getStrength() > vsCard.getStrength()) {
+						vsCard.setHumanOwner(true);
+					} else if (card.getStrength() < vsCard.getStrength()) {
+						vsCard.setHumanOwner(false);
+					}
+				}
+			}
+			
+			// Agility
+			int up = boardY - 1;
+			if (up >= 0) {
+				upSlot = game.getBoard().getSlots()[boardX][up];
+				Card vsCard = upSlot.getCard();
+				if (vsCard != null) {
+					if (card.getAgility() > vsCard.getAgility()) {
+						vsCard.setHumanOwner(true);
+					} else if (card.getAgility() < vsCard.getAgility()) {
+						vsCard.setHumanOwner(false);
+					}
+				}
+			}
+			
+			// Life
+			int down = boardY + 1;
+			if (down < 3) {
+				downSlot = game.getBoard().getSlots()[boardX][down];
+				Card vsCard = downSlot.getCard();
+				if (vsCard != null) {
+					if (card.getLife() > vsCard.getLife()) {
+						vsCard.setHumanOwner(true);
+					} else if (card.getLife() < vsCard.getLife()) {
+						vsCard.setHumanOwner(false);
+					}
+				}
+			}
+			
 		}
 	}
 	

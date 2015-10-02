@@ -23,12 +23,12 @@ public class Board {
 		slots = new Slot[boardSize][boardSize];
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				slots[i][j] = new Slot(x + Card.cardWidth * i, y + Card.cardHeight * j);
+				slots[i][j] = new Slot(i, j, x + Card.cardWidth * i, y + Card.cardHeight * j);
 			}
 		}
 		
-		fieldCardOne = new Slot((marginX - Card.cardWidth) / 2f, marginY + Card.cardHeight);
-		fieldCardTwo = new Slot(Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth / 2f, marginY + Card.cardHeight);
+		fieldCardOne = new Slot(-1, -1, (marginX - Card.cardWidth) / 2f, marginY + Card.cardHeight);
+		fieldCardTwo = new Slot(-1, -1, Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth / 2f, marginY + Card.cardHeight);
 	}
 	
 	public void update(LoudWeek game) {
@@ -52,5 +52,9 @@ public class Board {
 		
 		fieldCardOne.render();
 		fieldCardTwo.render();
+	}
+	
+	public Slot[][] getSlots() {
+		return slots;
 	}
 }

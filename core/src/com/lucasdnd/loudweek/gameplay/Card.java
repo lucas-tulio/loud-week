@@ -1,10 +1,18 @@
 package com.lucasdnd.loudweek.gameplay;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.lucasdnd.loudweek.FontUtils;
+import com.lucasdnd.loudweek.Resources;
+import com.lucasdnd.loudweek.gameplay.CardDatabase.CardModel;
 
 public class Card {
 	
+	// Card data
+	private int id;
 	private String name = "";
 	private String text = "";
 	private int strength = 0;
@@ -12,18 +20,43 @@ public class Card {
 	private int agility = 0;
 	private int life = 0;
 	
-	private int element = 0;
-	private int type = 0;
+	private boolean played;
+	private boolean humanOwner;
 	
+	// Render
+	private ShapeRenderer shapeRenderer;
+	private FontUtils font;
 	private SpriteBatch batch;
 	private Texture texture;
+	
+	private final float offsetRightX = -4f;
+	private final float offsetRightY = -1f;
+	
+	private final float offsetTopX = -5f;
+	private final float offsetTopY = -3f;
+	
+	private final float offsetLeftX = 6f;
 	
 	public final static int cardWidth = 168;
 	public final static int cardHeight = 216;
 	
-	public Card(Texture texture) {
+	public Card(CardModel cardModel, boolean humanOwner) {
+		
+		font = new FontUtils();
 		batch = new SpriteBatch();
-		this.texture = texture;
+		shapeRenderer = new ShapeRenderer();
+		
+		// Read the card model and get the data
+		this.id = cardModel.id;
+		this.name = cardModel.name;
+		this.text = cardModel.text;
+		this.strength = cardModel.strength;
+		this.defense = cardModel.defense;
+		this.agility = cardModel.agility;
+		this.life = cardModel.life;
+		this.texture = cardModel.texture;
+		
+		this.humanOwner = humanOwner;
 	}
 	
 	public void update() {
@@ -31,8 +64,90 @@ public class Card {
 	}
 	
 	public void render(float x, float y) {
+		
+		// Art
 		batch.begin();
 		batch.draw(texture, x, y);
 		batch.end();
+		
+		// Strength (right)
+		font.drawWhiteFont("" + strength,
+				x + cardWidth - Resources.get().whiteFont.getSpaceWidth() + offsetRightX,
+				y + cardHeight / 2f + Resources.get().whiteFont.getLineHeight() / 2f + offsetRightY,
+				true);
+		
+		// Agility (top)
+		font.drawWhiteFont("" + agility,
+				x + cardWidth / 2f + offsetTopX,
+				y + cardHeight + offsetTopY,
+				true);
+		
+		// Defense (left)
+		font.drawWhiteFont("" + defense,
+				x + offsetLeftX,
+				y + cardHeight / 2f + Resources.get().whiteFont.getLineHeight() / 2f + offsetRightY,
+				true);
+		
+		// Life (bot)
+		font.drawWhiteFont("" + life,
+				x + cardWidth / 2f + offsetTopX,
+				y + Resources.get().whiteFont.getLineHeight(),
+				true);
+		
+		// Border
+		if (played) {
+			shapeRenderer.begin(ShapeType.Line);
+			if (humanOwner) {
+				shapeRenderer.setColor(Color.BLUE);
+			} else {
+				shapeRenderer.setColor(Color.RED);
+			}
+			shapeRenderer.rect(x, y, cardWidth, cardHeight);
+			shapeRenderer.end();
+		}
+	}
+
+	public int getStrength() {
+		return strength;
+	}
+
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
+	public int getAgility() {
+		return agility;
+	}
+
+	public void setAgility(int agility) {
+		this.agility = agility;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
+
+	public boolean isHumanOwner() {
+		return humanOwner;
+	}
+
+	public void setHumanOwner(boolean humanOwner) {
+		this.humanOwner = humanOwner;
+	}
+
+	public void setPlayed(boolean played) {
+		this.played = played;
 	}
 }
