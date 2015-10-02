@@ -64,11 +64,47 @@ public class Card {
 	}
 	
 	public void render(float x, float y) {
+
+		if (played) {
 		
-		// Art
+			// Cards on the board
+			renderCard(x, y);
+			renderCardNumbers(x, y);
+			
+			// Border
+			if (played) {
+				shapeRenderer.begin(ShapeType.Line);
+				if (humanOwner) {
+					shapeRenderer.setColor(Color.BLUE);
+				} else {
+					shapeRenderer.setColor(Color.RED);
+				}
+				shapeRenderer.rect(x, y, cardWidth, cardHeight);
+				shapeRenderer.end();
+			}
+			
+		} else {
+			
+			// Cards on each player's hand
+			
+			if (humanOwner) {
+				renderCard(x, y);
+				renderCardNumbers(x, y);
+			} else {
+				batch.begin();
+				batch.draw(Resources.get().cardBack, x, y);
+				batch.end();
+			}
+		}
+	}
+	
+	private void renderCard(float x, float y) {
 		batch.begin();
 		batch.draw(texture, x, y);
 		batch.end();
+	}
+	
+	private void renderCardNumbers(float x, float y) {
 		
 		// Strength (right)
 		font.drawWhiteFont("" + strength,
@@ -93,18 +129,6 @@ public class Card {
 				x + cardWidth / 2f + offsetTopX,
 				y + Resources.get().whiteFont.getLineHeight(),
 				true);
-		
-		// Border
-		if (played) {
-			shapeRenderer.begin(ShapeType.Line);
-			if (humanOwner) {
-				shapeRenderer.setColor(Color.BLUE);
-			} else {
-				shapeRenderer.setColor(Color.RED);
-			}
-			shapeRenderer.rect(x, y, cardWidth, cardHeight);
-			shapeRenderer.end();
-		}
 	}
 
 	public int getStrength() {

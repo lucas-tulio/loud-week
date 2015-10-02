@@ -14,6 +14,7 @@ public class Match {
 	private long maxAiTicks = 60l;
 	
 	public Match(Player humanPlayer, Player aiPlayer) {
+		
 		this.humanPlayer = humanPlayer;
 		this.aiPlayer = aiPlayer;
 		
@@ -31,5 +32,9 @@ public class Match {
 			}
 			aiPlayer.update(game);
 		}
+	}
+
+	public boolean isHumanPlayerturn() {
+		return humanPlayerTurn;
 	}
 }

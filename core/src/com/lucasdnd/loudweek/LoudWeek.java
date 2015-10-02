@@ -108,4 +108,8 @@ public class LoudWeek extends ApplicationAdapter {
 	public Board getBoard() {
 		return board;
 	}
+
+	public Match getMatch() {
+		return match;
+	}
 }

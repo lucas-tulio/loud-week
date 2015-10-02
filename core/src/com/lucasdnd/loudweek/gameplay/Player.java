@@ -73,36 +73,39 @@ public class Player {
 			return;
 		}
 		
-		// Check if a card was clicked
-		InputHandler input = game.getInputHandler();
+		if (game.getMatch().isHumanPlayerturn()) {
 		
-		// Mouse over will zoom the card in
-		float mouseX = Gdx.input.getX();
-		float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-		
-		// Check if we mouse overed the hand
-		mouseOverHand = (mouseX >= x && mouseX <= x + fullHandWidth && mouseY >= y && mouseY <= y + Card.cardHeight);
-		if (mouseOverHand) {
+			// Check if a card was clicked
+			InputHandler input = game.getInputHandler();
 			
-			// Which card was hovered?
-			if (mouseX <= x + Card.cardWidth) {
-				hoveredCardId = 0;
-			} else {
-				int mouseXStart = (int)(mouseX - x - Card.cardWidth);
-				hoveredCardId = (int)(mouseXStart / cardOffsetX) + 1;
+			// Mouse over will zoom the card in
+			float mouseX = Gdx.input.getX();
+			float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+			
+			// Check if we mouse overed the hand
+			mouseOverHand = (mouseX >= x && mouseX <= x + fullHandWidth && mouseY >= y && mouseY <= y + Card.cardHeight);
+			if (mouseOverHand) {
+				
+				// Which card was hovered?
+				if (mouseX <= x + Card.cardWidth) {
+					hoveredCardId = 0;
+				} else {
+					int mouseXStart = (int)(mouseX - x - Card.cardWidth);
+					hoveredCardId = (int)(mouseXStart / cardOffsetX) + 1;
+				}
+				
+				if (input.leftMouseJustClicked && game.getCardOnMouse() == null) {
+					// Clicks
+					Card selectedCard = hand.get(hoveredCardId);
+					game.setCardOnMouse(selectedCard);
+					hand.remove(selectedCard);
+				}
+				
 			}
 			
-			if (input.leftMouseJustClicked && game.getCardOnMouse() == null) {
-				// Clicks
-				Card selectedCard = hand.get(hoveredCardId);
-				game.setCardOnMouse(selectedCard);
-				hand.remove(selectedCard);
+			for (Card c : hand) {
+				c.update();
 			}
-			
-		}
-		
-		for (Card c : hand) {
-			c.update();
 		}
 	}
 	

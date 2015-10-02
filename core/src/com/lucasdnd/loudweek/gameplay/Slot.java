@@ -34,14 +34,11 @@ public class Slot {
 			return;
 		}
 		
-//		if (game.getCardOnMouse() == null && card != null) {
-//			// Picking up a card
-//			game.setCardOnMouse(card);
-//			card = null;
-//			return;
-//		} else
+		// Play a card
 		if (card == null) {
-		
+			
+			playCard(card);
+			
 			// Dropping a card on the board
 			card = game.getCardOnMouse();
 			card.setPlayed(true);
@@ -107,6 +104,10 @@ public class Slot {
 			}
 			
 		}
+	}
+	
+	private void playCard(Card card) {
+		
 	}
 	
 	public void render() {
