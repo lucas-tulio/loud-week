@@ -29,87 +29,94 @@ public class Slot {
 	}
 	
 	public void update(LoudWeek game) {
-		
-		if (gotLeftClicked(game) == false) {
-			return;
-		}
-		
+	
 		// Play a card
-		if (card == null) {
-			
-			playCard(card);
-			
-			// Dropping a card on the board
-			card = game.getCardOnMouse();
-			card.setPlayed(true);
-			game.setCardOnMouse(null);
-			
-			// Get the cards around it
-			Slot leftSlot, rightSlot, upSlot, downSlot;
-			
-			// Defense
-			int left = boardX - 1;
-			if (left >= 0) {
-				leftSlot = game.getBoard().getSlots()[left][boardY];
-				Card vsCard = leftSlot.getCard();
-				if (vsCard != null) {
-					if (card.getDefense() > vsCard.getDefense()) {
-						vsCard.setHumanOwner(true);
-					} else if (card.getDefense() < vsCard.getDefense()) {
-						vsCard.setHumanOwner(false);
-					}
-				}
-			}
-			
-			// Strength
-			int right = boardX + 1;
-			if (right < 3) {
-				rightSlot = game.getBoard().getSlots()[right][boardY];
-				Card vsCard = rightSlot.getCard();
-				if (vsCard != null) {
-					if (card.getStrength() > vsCard.getStrength()) {
-						vsCard.setHumanOwner(true);
-					} else if (card.getStrength() < vsCard.getStrength()) {
-						vsCard.setHumanOwner(false);
-					}
-				}
-			}
-			
-			// Agility
-			int up = boardY - 1;
-			if (up >= 0) {
-				upSlot = game.getBoard().getSlots()[boardX][up];
-				Card vsCard = upSlot.getCard();
-				if (vsCard != null) {
-					if (card.getAgility() > vsCard.getAgility()) {
-						vsCard.setHumanOwner(true);
-					} else if (card.getAgility() < vsCard.getAgility()) {
-						vsCard.setHumanOwner(false);
-					}
-				}
-			}
-			
-			// Life
-			int down = boardY + 1;
-			if (down < 3) {
-				downSlot = game.getBoard().getSlots()[boardX][down];
-				Card vsCard = downSlot.getCard();
-				if (vsCard != null) {
-					if (card.getLife() > vsCard.getLife()) {
-						vsCard.setHumanOwner(true);
-					} else if (card.getLife() < vsCard.getLife()) {
-						vsCard.setHumanOwner(false);
-					}
-				}
-			}
-			
-			// Pass Turn
-			game.getMatch().passTurn();
+		if (gotLeftClicked(game) && card == null) {
+			playCard(game, game.getCardOnMouse(), true);
 		}
 	}
 	
-	private void playCard(Card card) {
+	protected void playCard(LoudWeek game, Card card, boolean isHumanPlayer) {
 		
+		// Dropping a card on the board
+		this.setCard(card);
+		card.setPlayed(true);
+		game.setCardOnMouse(null);
+		
+		// Get the cards around it
+		Slot leftSlot, rightSlot, upSlot, downSlot;
+		int statPlayed, statAgainst;
+		
+		// Defense
+		int left = boardX - 1;
+		if (left >= 0) {
+			leftSlot = game.getBoard().getSlots()[left][boardY];
+			
+			Card vsCard = leftSlot.getCard();
+			if (vsCard != null) {
+				
+				statPlayed = card.getDefense();
+				statAgainst = vsCard.getStrength();
+				
+				if (statPlayed > statAgainst) {
+					vsCard.setHumanOwner(isHumanPlayer);
+				}
+			}
+		}
+		
+		// Strength
+		int right = boardX + 1;
+		if (right < 3) {
+			rightSlot = game.getBoard().getSlots()[right][boardY];
+			
+			Card vsCard = rightSlot.getCard();
+			if (vsCard != null) {
+			
+				statPlayed = card.getStrength();
+				statAgainst = vsCard.getDefense();
+				
+				if (statPlayed > statAgainst) {
+					vsCard.setHumanOwner(isHumanPlayer);
+				}
+			}
+		}
+		
+		// Agility
+		int up = boardY + 1;
+		if (up < 3) {
+			upSlot = game.getBoard().getSlots()[boardX][up];
+			
+			Card vsCard = upSlot.getCard();
+			if (vsCard != null) {
+				
+				statPlayed = card.getAgility();
+				statAgainst = vsCard.getLife();
+				
+				if (statPlayed > statAgainst) {
+					vsCard.setHumanOwner(isHumanPlayer);
+				}
+			}
+		}
+		
+		// Life
+		int down = boardY - 1;
+		if (down >= 0) {
+			downSlot = game.getBoard().getSlots()[boardX][down];
+			
+			Card vsCard = downSlot.getCard();
+			if (vsCard != null) {
+			
+				statPlayed = card.getLife();
+				statAgainst = vsCard.getAgility();
+				
+				if (statPlayed > statAgainst) {
+					vsCard.setHumanOwner(isHumanPlayer);
+				}	
+			}
+		}
+		
+		// Pass Turn
+		game.getMatch().passTurn();
 	}
 	
 	public void render() {
@@ -120,6 +127,11 @@ public class Slot {
 			sr.end();
 		} else {
 			card.render(x, y);
+		}
+		
+		if (LoudWeek.debug) {
+			font.drawWhiteFont("boardX: " + boardX, x, y + Card.cardHeight, true);
+			font.drawWhiteFont("boardY: " + boardY, x, y - 20f + Card.cardHeight, true);
 		}
 	}
 

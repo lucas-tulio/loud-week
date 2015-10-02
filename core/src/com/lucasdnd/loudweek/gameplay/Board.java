@@ -1,5 +1,8 @@
 package com.lucasdnd.loudweek.gameplay;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.lucasdnd.loudweek.LoudWeek;
 
@@ -56,5 +59,20 @@ public class Board {
 	
 	public Slot[][] getSlots() {
 		return slots;
+	}
+	
+	public Slot getRandomEmptySlot() {
+		ArrayList<Slot> emptySlots = new ArrayList<Slot>();
+		for (int i = 0; i < slots.length; i++) {
+			for (int j = 0; j < slots.length; j++) {
+				if (slots[i][j].getCard() == null) {
+					emptySlots.add(slots[i][j]);
+				}
+			}
+		}
+		if (emptySlots.size() == 0) {
+			return null;
+		}
+		return emptySlots.get(new Random().nextInt(emptySlots.size()));
 	}
 }

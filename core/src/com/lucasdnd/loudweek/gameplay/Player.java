@@ -1,12 +1,12 @@
 package com.lucasdnd.loudweek.gameplay;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
-import com.lucasdnd.loudweek.Resources;
 
 public class Player {
 	
@@ -18,7 +18,6 @@ public class Player {
 	// Cards
 	boolean mouseOverHand = false;
 	private int hoveredCardId = 0;
-	private final int maxCards = 5;
 	private LinkedList<Card> hand;
 	
 	FontUtils font;
@@ -168,5 +167,13 @@ public class Player {
 
 	public int getHoverCardId() {
 		return hoveredCardId;
+	}
+	
+	public Card getRandomCard() {
+		return hand.get(new Random().nextInt(hand.size()));
+	}
+	
+	public LinkedList<Card> getHand() {
+		return hand;
 	}
 }
