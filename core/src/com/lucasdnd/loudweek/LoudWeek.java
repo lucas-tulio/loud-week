@@ -10,13 +10,19 @@ import com.lucasdnd.loudweek.gameplay.Match;
 import com.lucasdnd.loudweek.gameplay.Player;
 import com.lucasdnd.loudweek.gameplay.Player.Position;
 
+/**
+ * Main game class.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class LoudWeek extends ApplicationAdapter {
 	
 	public static final String GAME_NAME = "Besdiário";
 	public static final String VERSION = "v0.1.0";
 	public static boolean debug = false;
 	
-	FontUtils font;
+	private FontUtils font;
 	
 	// Input
 	private InputHandler inputHandler;
@@ -26,6 +32,11 @@ public class LoudWeek extends ApplicationAdapter {
 	private Board board;
 	private Card cardOnMouse;
 	private Player humanPlayer, aiPlayer;
+	
+	// Current game state (deck building / in game)
+	private int state = 0;
+	public static final int DECK_BUILDING = 0;
+	public static final int IN_GAME = 1;
 	
 	@Override
 	public void create () {
