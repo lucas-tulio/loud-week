@@ -40,12 +40,12 @@ public class Board {
 		slots = new Slot[boardSize][boardSize];
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				slots[i][j] = new Slot(CardModel.CREATURE, i, j, x + Card.cardWidth * i, y + Card.cardHeight * j);
+				slots[i][j] = new Slot(CardModel.CREATURE, false, i, j, x + Card.cardWidth * i, y + Card.cardHeight * j);
 			}
 		}
 		
-		fieldCardOne = new Slot(CardModel.FIELD, -1, -1, (marginX - Card.cardWidth) + fieldCardOneTextureOffsetX, marginY + Card.cardHeight);
-		fieldCardTwo = new Slot(CardModel.FIELD, -2, -2, Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth + fieldCardTwoTextureOffsetX, marginY + Card.cardHeight);
+		fieldCardOne = new Slot(CardModel.FIELD, false, -1, -1, (marginX - Card.cardWidth) + fieldCardOneTextureOffsetX, marginY + Card.cardHeight);
+		fieldCardTwo = new Slot(CardModel.FIELD, true, -2, -2, Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth + fieldCardTwoTextureOffsetX, marginY + Card.cardHeight);
 	}
 	
 	public void update(LoudWeek game) {

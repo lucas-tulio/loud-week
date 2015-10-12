@@ -12,6 +12,7 @@ public class Slot {
 	
 	private int boardX, boardY;
 	private int type = 0;	// CardModel.CREATURE or CardModel.FIELD
+	private boolean humanOwner;
 	
 	private ShapeRenderer sr;
 	private FontUtils font;
@@ -19,8 +20,9 @@ public class Slot {
 	private float x, y;
 	private Card card;
 	
-	public Slot(int type, int boardX, int boardY, float x, float y) {
+	public Slot(int type, boolean humanOwner, int boardX, int boardY, float x, float y) {
 		this.type = type;
+		this.humanOwner = humanOwner;
 		this.boardX = boardX;
 		this.boardY = boardY;
 		this.x = x;
@@ -38,7 +40,8 @@ public class Slot {
 			// Check if it's a normal card or a field card
 			if (game.getCardOnMouse().getType() == CardModel.CREATURE && type == CardModel.CREATURE) {
 				playCard(game, game.getCardOnMouse(), true);
-			} else if (game.getCardOnMouse().getType() == CardModel.FIELD && type == CardModel.FIELD) {
+			} else if (game.getCardOnMouse().getType() == CardModel.FIELD && type == CardModel.FIELD
+					&& humanOwner) {
 				playCard(game, game.getCardOnMouse(), true);
 			}
 		}
