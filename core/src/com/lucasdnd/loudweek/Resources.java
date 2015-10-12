@@ -3,6 +3,7 @@ package com.lucasdnd.loudweek;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.lucasdnd.loudweek.gameplay.CardTexture;
 
 public class Resources {
 	private static Resources instance;
@@ -15,8 +16,16 @@ public class Resources {
 	
 	private Resources() {
 		
-		abeelha1 = new Texture("img/AB_1.png");
-		abeelha2 = new Texture("img/AB_2.png");
+		fieldCardOne = new CardTexture(new Texture("img/Campo1.png"), new Texture("img/Campo1.png"));
+		fieldCardTwo = new CardTexture(new Texture("img/Campo2.png"), new Texture("img/Campo2.png"));
+		
+		abeelhaFofo = new CardTexture(new Texture("img/Abeelha_Azul_1.png"), new Texture("img/Abeelha_Vermelho_1.png"));
+		abeelhaAberracao = new CardTexture(new Texture("img/Abeelha_Azul_2.png"), new Texture("img/Abeelha_Vermelho_2.png"));
+		dragonsai = new CardTexture(new Texture("img/Dragonsai_Azul_Dragão.png"), new Texture("img/Dragonsai_Vermelhol_Dragão.png"));
+		elemental = new CardTexture(new Texture("img/Elemental_Azul_Entidade.png"), new Texture("img/Elemental_Vermelho_Entidade.png"));
+		ent = new CardTexture(new Texture("img/Ent_Azul_Guerreiro.png"), new Texture("img/Ent_Vermelhol_Guerreiro.png"));
+		golem = new CardTexture(new Texture("img/Golem_Azul_Aberração.png"), new Texture("img/Golem_Vermelho_Aberração.png"));
+		
 		cardBack = new Texture("img/Verso.png");
 		boardTexture = new Texture("img/Tabuleiro_fundo.png");
 		
@@ -28,11 +37,17 @@ public class Resources {
 		greenFont = new BitmapFont(Gdx.files.internal("font/proggyGreen.fnt"));
 	}
 	
-	// Textures
-	public Texture abeelha1;
-	public Texture abeelha2;
-	public Texture cardBack;
+	// Card Textures
+	public CardTexture abeelhaFofo;
+	public CardTexture abeelhaAberracao;
+	public CardTexture fieldCardOne, fieldCardTwo;
+	public CardTexture dragonsai;
+	public CardTexture elemental;
+	public CardTexture ent;
+	public CardTexture golem;
 	
+	// Textures
+	public Texture cardBack;
 	public Texture boardTexture;
 	
 	// Fonts

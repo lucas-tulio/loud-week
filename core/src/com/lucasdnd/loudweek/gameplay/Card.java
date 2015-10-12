@@ -1,13 +1,11 @@
 package com.lucasdnd.loudweek.gameplay;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.Resources;
-import com.lucasdnd.loudweek.gameplay.CardDatabase.CardModel;
 
 public class Card {
 	
@@ -15,6 +13,7 @@ public class Card {
 	private int id;
 	private String name = "";
 	private String text = "";
+	private int type = 0;	// Creature or Field Card
 	private int strength = 0;
 	private int defense = 0;
 	private int agility = 0;
@@ -27,7 +26,7 @@ public class Card {
 	private ShapeRenderer shapeRenderer;
 	private FontUtils font;
 	private SpriteBatch batch;
-	private Texture texture;
+	private CardTexture cardTexture;
 	
 	private final float offsetRightX = -4f;
 	private final float offsetRightY = -1f;
@@ -50,11 +49,12 @@ public class Card {
 		this.id = cardModel.id;
 		this.name = cardModel.name;
 		this.text = cardModel.text;
+		this.type = cardModel.type;
 		this.strength = cardModel.strength;
 		this.defense = cardModel.defense;
 		this.agility = cardModel.agility;
 		this.life = cardModel.life;
-		this.texture = cardModel.texture;
+		this.cardTexture = cardModel.cardTexture;
 		
 		this.humanOwner = humanOwner;
 	}
@@ -70,18 +70,6 @@ public class Card {
 			// Cards on the board
 			renderCard(x, y);
 			renderCardNumbers(x, y);
-			
-			// Border
-			if (played) {
-				shapeRenderer.begin(ShapeType.Filled);
-				if (humanOwner) {
-					shapeRenderer.setColor(Color.BLUE);
-				} else {
-					shapeRenderer.setColor(Color.RED);
-				}
-				shapeRenderer.rect(x + cardWidth / 4f + cardWidth / 8f, y + cardHeight / 4f + cardHeight / 8f, cardWidth / 4f, cardHeight / 4f);
-				shapeRenderer.end();
-			}
 			
 		} else {
 			
@@ -99,12 +87,21 @@ public class Card {
 	}
 	
 	private void renderCard(float x, float y) {
+		
 		batch.begin();
-		batch.draw(texture, x, y);
+		if (humanOwner) {
+			batch.draw(cardTexture.blue, x, y);
+		} else {
+			batch.draw(cardTexture.red, x, y);
+		}
 		batch.end();
 	}
 	
 	private void renderCardNumbers(float x, float y) {
+		
+		if (type == CardModel.FIELD) {
+			return;
+		}
 		
 		// Strength (right)
 		font.drawWhiteFont("" + strength,
