@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lucasdnd.loudweek.LoudWeek;
+import com.lucasdnd.loudweek.Resources;
 
 public class Board {
 	
@@ -12,14 +15,25 @@ public class Board {
 	private float marginX, marginY;
 	private final int boardSize = 3;
 	
+	private final float textureOffsetX = 14f;
+	private final float textureOffsetY = 22f;
+	private final float fieldCardOneTextureOffsetX = -33f;
+	private final float fieldCardTwoTextureOffsetX = 28f;
+	
 	private Slot[][] slots;
 	private Slot fieldCardOne;
 	private Slot fieldCardTwo;
 	
+	private Texture texture;
+	private SpriteBatch batch;
+	
 	public Board() {
 		
-		marginX = (Gdx.graphics.getWidth() - (Card.cardWidth * 3)) / 2f;
-		marginY = (Gdx.graphics.getHeight() - (Card.cardHeight * 3)) / 2f;
+		batch = new SpriteBatch();
+		texture = Resources.get().boardTexture;
+		
+		marginX = (Gdx.graphics.getWidth() - (Card.cardWidth * 3)) / 2f + textureOffsetX;
+		marginY = (Gdx.graphics.getHeight() - (Card.cardHeight * 3)) / 2f + textureOffsetY;
 		
 		x = marginX;
 		y = marginY;
@@ -30,8 +44,8 @@ public class Board {
 			}
 		}
 		
-		fieldCardOne = new Slot(-1, -1, (marginX - Card.cardWidth) / 2f, marginY + Card.cardHeight);
-		fieldCardTwo = new Slot(-1, -1, Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth / 2f, marginY + Card.cardHeight);
+		fieldCardOne = new Slot(-1, -1, (marginX - Card.cardWidth) + fieldCardOneTextureOffsetX, marginY + Card.cardHeight);
+		fieldCardTwo = new Slot(-1, -1, Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth + fieldCardTwoTextureOffsetX, marginY + Card.cardHeight);
 	}
 	
 	public void update(LoudWeek game) {
@@ -47,6 +61,11 @@ public class Board {
 	}
 	
 	public void render() {
+		
+		batch.begin();
+		batch.draw(texture, 1f, -1f);
+		batch.end();
+		
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				slots[i][j].render();

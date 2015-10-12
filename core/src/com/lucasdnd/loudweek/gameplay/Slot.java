@@ -31,7 +31,7 @@ public class Slot {
 	public void update(LoudWeek game) {
 	
 		// Play a card
-		if (gotLeftClicked(game) && card == null) {
+		if (gotLeftClicked(game) && card == null && game.getCardOnMouse() != null) {
 			playCard(game, game.getCardOnMouse(), true);
 		}
 	}
@@ -120,11 +120,12 @@ public class Slot {
 	}
 	
 	public void render() {
+		
 		if (card == null) {
-			sr.begin(ShapeType.Line);
-			sr.setColor(Color.BLACK);
-			sr.rect(x, y, Card.cardWidth, Card.cardHeight);
-			sr.end();
+//			sr.begin(ShapeType.Line);
+//			sr.setColor(Color.BLACK);
+//			sr.rect(x, y, Card.cardWidth, Card.cardHeight);
+//			sr.end();
 		} else {
 			card.render(x, y);
 		}

@@ -18,6 +18,7 @@ public class Resources {
 		abeelha1 = new Texture("img/AB_1.png");
 		abeelha2 = new Texture("img/AB_2.png");
 		cardBack = new Texture("img/Verso.png");
+		boardTexture = new Texture("img/Tabuleiro_fundo.png");
 		
 		whiteFont = new BitmapFont(Gdx.files.internal("font/proggyWhite.fnt"));
 		blackFont = new BitmapFont(Gdx.files.internal("font/proggyBlack.fnt"));
@@ -31,6 +32,8 @@ public class Resources {
 	public Texture abeelha1;
 	public Texture abeelha2;
 	public Texture cardBack;
+	
+	public Texture boardTexture;
 	
 	// Fonts
 	public BitmapFont whiteFont;
