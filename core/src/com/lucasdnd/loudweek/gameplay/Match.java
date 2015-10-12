@@ -5,7 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 import com.lucasdnd.loudweek.FontUtils;
-import com.lucasdnd.loudweek.LoudWeek;
+import com.lucasdnd.loudweek.screens.MatchScreen;
 
 public class Match {
 	
@@ -31,10 +31,10 @@ public class Match {
 		humanPlayerTurn = new Random().nextBoolean();
 	}
 	
-	public void update(LoudWeek game) {
+	public void update(MatchScreen matchScreen) {
 		
 		// Check if the game is over
-		if (game.getBoard().getRandomEmptySlot() == null) {
+		if (matchScreen.getBoard().getRandomEmptySlot() == null) {
 			gameOver = true;
 		}
 		
@@ -42,7 +42,7 @@ public class Match {
 		if (gameOver) {
 			int humanCards = 0;
 			int aiCards = 0;
-			Slot[][] slots = game.getBoard().getSlots();
+			Slot[][] slots = matchScreen.getBoard().getSlots();
 			for (int i = 0; i < slots.length; i++) {
 				for (int j = 0; j < slots.length; j++) {
 					if (slots[i][j].getCard().isHumanOwner()) {
@@ -58,19 +58,19 @@ public class Match {
 		
 		// Normal game
 		if (humanPlayerTurn) {
-			humanPlayer.update(game);
+			humanPlayer.update(matchScreen);
 		} else {
 			aiTicks++;
 			if (aiTicks % maxAiTicks == 0) {
-				playAiCard(game);
+				playAiCard(matchScreen);
 				humanPlayerTurn = true;
 			}
 		}
 	}
 	
-	private void playAiCard(LoudWeek game) {
+	private void playAiCard(MatchScreen matchScreen) {
 		
-		Slot emptySlot = game.getBoard().getRandomEmptySlot();
+		Slot emptySlot = matchScreen.getBoard().getRandomEmptySlot();
 		
 		if (emptySlot == null) {
 			
@@ -81,7 +81,7 @@ public class Match {
 			// Play card
 			Card cardToPlay = aiPlayer.getRandomCard();
 			aiPlayer.getHand().remove(cardToPlay);
-			emptySlot.playCard(game, cardToPlay, false);
+			emptySlot.playCard(matchScreen, cardToPlay, false);
 		}
 	}
 	

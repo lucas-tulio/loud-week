@@ -6,8 +6,8 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.Resources;
+import com.lucasdnd.loudweek.screens.MatchScreen;
 
 public class Board {
 	
@@ -48,16 +48,16 @@ public class Board {
 		fieldCardTwo = new Slot(CardModel.FIELD, true, -2, -2, Gdx.graphics.getWidth() - marginX / 2f - Card.cardWidth + fieldCardTwoTextureOffsetX, marginY + Card.cardHeight);
 	}
 	
-	public void update(LoudWeek game) {
+	public void update(MatchScreen matchScreen) {
 		
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				slots[i][j].update(game);
+				slots[i][j].update(matchScreen);
 			}
 		}
 		
-		fieldCardOne.update(game);
-		fieldCardTwo.update(game);
+		fieldCardOne.update(matchScreen);
+		fieldCardTwo.update(matchScreen);
 	}
 	
 	public void render() {

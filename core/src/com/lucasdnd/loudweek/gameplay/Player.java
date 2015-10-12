@@ -6,7 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
-import com.lucasdnd.loudweek.LoudWeek;
+import com.lucasdnd.loudweek.screens.MatchScreen;
 
 public class Player {
 	
@@ -66,7 +66,7 @@ public class Player {
 		font = new FontUtils();
 	}
 	
-	public void update(LoudWeek game) {
+	public void update(MatchScreen matchScreen) {
 		
 		if (position != Position.lowerRight) {
 			return;
@@ -74,9 +74,9 @@ public class Player {
 		
 		// Human player action
 		
-		if (game.getMatch().isHumanPlayerturn()) {
+		if (matchScreen.getMatch().isHumanPlayerturn()) {
 		
-			InputHandler input = game.getInputHandler();
+			InputHandler input = matchScreen.getGame().getInputHandler();
 			
 			// Mouse over will zoom the card in
 			float mouseX = Gdx.input.getX();
@@ -94,10 +94,10 @@ public class Player {
 					hoveredCardId = (int)(mouseXStart / cardOffsetX) + 1;
 				}
 				
-				if (input.leftMouseJustClicked && game.getCardOnMouse() == null) {
+				if (input.leftMouseJustClicked && matchScreen.getCardOnMouse() == null) {
 					// Clicks
 					Card selectedCard = hand.get(hoveredCardId);
-					game.setCardOnMouse(selectedCard);
+					matchScreen.setCardOnMouse(selectedCard);
 					hand.remove(selectedCard);
 				}
 				
@@ -109,13 +109,13 @@ public class Player {
 		}
 	}
 	
-	public void render(LoudWeek game) {
+	public void render(MatchScreen matchScreen) {
 		
 		if (isHuman) {
 
 			// Player's hand
 			for (int i = hand.size() - 1; i >= 0; i--) {
-				if (mouseOverHand == false || game.getCardOnMouse() != null) {
+				if (mouseOverHand == false || matchScreen.getCardOnMouse() != null) {
 					hand.get(i).render(x + (cardOffsetX * i), y);
 				} else if (hoveredCardId != i) {
 					hand.get(i).render(x + (cardOffsetX * i), y);
@@ -123,7 +123,7 @@ public class Player {
 			}
 			
 			// Hovered card pops out
-			if (mouseOverHand && game.getCardOnMouse() == null && hoveredCardId < hand.size()) {
+			if (mouseOverHand && matchScreen.getCardOnMouse() == null && hoveredCardId < hand.size()) {
 				Card hoveredCard = hand.get(hoveredCardId);
 				hoveredCard.render(x + (cardOffsetX * hoveredCardId), y + 20f);
 			}

@@ -1,19 +1,18 @@
 package com.lucasdnd.loudweek.gameplay;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
+import com.lucasdnd.loudweek.screens.MatchScreen;
 
 public class Slot {
 	
 	private int boardX, boardY;
 	private int type = 0;	// CardModel.CREATURE or CardModel.FIELD
 	private boolean humanOwner;
-	
+		
 	private ShapeRenderer sr;
 	private FontUtils font;
 	
@@ -32,31 +31,31 @@ public class Slot {
 		card = null;
 	}
 	
-	public void update(LoudWeek game) {
+	public void update(MatchScreen matchScreen) {
 	
 		// Play a card on the board
-		if (gotLeftClicked(game) && card == null && game.getCardOnMouse() != null) {
+		if (gotLeftClicked(matchScreen) && card == null && matchScreen.getCardOnMouse() != null) {
 			
 			// Check if it's a normal card or a field card
-			if (game.getCardOnMouse().getType() == CardModel.CREATURE && type == CardModel.CREATURE) {
-				playCard(game, game.getCardOnMouse(), true);
-			} else if (game.getCardOnMouse().getType() == CardModel.FIELD && type == CardModel.FIELD
+			if (matchScreen.getCardOnMouse().getType() == CardModel.CREATURE && type == CardModel.CREATURE) {
+				playCard(matchScreen, matchScreen.getCardOnMouse(), true);
+			} else if (matchScreen.getCardOnMouse().getType() == CardModel.FIELD && type == CardModel.FIELD
 					&& humanOwner) {
-				playCard(game, game.getCardOnMouse(), true);
+				playCard(matchScreen, matchScreen.getCardOnMouse(), true);
 			}
 		}
 	}
 	
-	protected void playCard(LoudWeek game, Card card, boolean isHumanPlayer) {
+	protected void playCard(MatchScreen matchScreen, Card card, boolean isHumanPlayer) {
 		
 		// Dropping a card on the board
 		this.setCard(card);
 		card.setPlayed(true);
-		game.setCardOnMouse(null);
+		matchScreen.setCardOnMouse(null);
 		
 		// If it's a field card, it won't fight the cards around it
 		if (card.getType() == CardModel.FIELD) {
-			game.getMatch().passTurn();
+			matchScreen.getMatch().passTurn();
 			return;
 		}
 		
@@ -67,7 +66,7 @@ public class Slot {
 		// Defense
 		int left = boardX - 1;
 		if (left >= 0) {
-			leftSlot = game.getBoard().getSlots()[left][boardY];
+			leftSlot = matchScreen.getBoard().getSlots()[left][boardY];
 			
 			Card vsCard = leftSlot.getCard();
 			if (vsCard != null) {
@@ -84,7 +83,7 @@ public class Slot {
 		// Strength
 		int right = boardX + 1;
 		if (right < 3) {
-			rightSlot = game.getBoard().getSlots()[right][boardY];
+			rightSlot = matchScreen.getBoard().getSlots()[right][boardY];
 			
 			Card vsCard = rightSlot.getCard();
 			if (vsCard != null) {
@@ -101,7 +100,7 @@ public class Slot {
 		// Agility
 		int up = boardY + 1;
 		if (up < 3) {
-			upSlot = game.getBoard().getSlots()[boardX][up];
+			upSlot = matchScreen.getBoard().getSlots()[boardX][up];
 			
 			Card vsCard = upSlot.getCard();
 			if (vsCard != null) {
@@ -118,7 +117,7 @@ public class Slot {
 		// Life
 		int down = boardY - 1;
 		if (down >= 0) {
-			downSlot = game.getBoard().getSlots()[boardX][down];
+			downSlot = matchScreen.getBoard().getSlots()[boardX][down];
 			
 			Card vsCard = downSlot.getCard();
 			if (vsCard != null) {
@@ -133,17 +132,12 @@ public class Slot {
 		}
 		
 		// Pass Turn
-		game.getMatch().passTurn();
+		matchScreen.getMatch().passTurn();
 	}
 	
 	public void render() {
 		
-		if (card == null) {
-//			sr.begin(ShapeType.Line);
-//			sr.setColor(Color.BLACK);
-//			sr.rect(x, y, Card.cardWidth, Card.cardHeight);
-//			sr.end();
-		} else {
+		if (card != null) {
 			card.render(x, y);
 		}
 		
@@ -153,8 +147,8 @@ public class Slot {
 		}
 	}
 
-	private boolean gotLeftClicked(LoudWeek game) {
-		InputHandler input = game.getInputHandler();
+	private boolean gotLeftClicked(MatchScreen matchScreen) {
+		InputHandler input = matchScreen.getGame().getInputHandler();
 		float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		return (input.leftMouseJustClicked &&
 				Gdx.input.getX() >= x && Gdx.input.getX() <= x + Card.cardWidth &&
