@@ -69,6 +69,10 @@ public class LoudWeek extends ApplicationAdapter {
 		
 		if (cardOnMouse != null) {
 			cardOnMouse.update();
+			if (inputHandler.rightMouseJustClicked) {
+				humanPlayer.getHand().add(cardOnMouse);
+				cardOnMouse = null;
+			}
 		}
 		
 		inputHandler.refreshMouseClicks();
