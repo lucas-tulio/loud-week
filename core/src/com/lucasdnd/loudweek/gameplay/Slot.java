@@ -11,6 +11,7 @@ import com.lucasdnd.loudweek.LoudWeek;
 public class Slot {
 	
 	private int boardX, boardY;
+	private int type = 0;	// CardModel.CREATURE or CardModel.FIELD
 	
 	private ShapeRenderer sr;
 	private FontUtils font;
@@ -18,7 +19,8 @@ public class Slot {
 	private float x, y;
 	private Card card;
 	
-	public Slot(int boardX, int boardY, float x, float y) {
+	public Slot(int type, int boardX, int boardY, float x, float y) {
+		this.type = type;
 		this.boardX = boardX;
 		this.boardY = boardY;
 		this.x = x;
@@ -30,9 +32,15 @@ public class Slot {
 	
 	public void update(LoudWeek game) {
 	
-		// Play a card
+		// Play a card on the board
 		if (gotLeftClicked(game) && card == null && game.getCardOnMouse() != null) {
-			playCard(game, game.getCardOnMouse(), true);
+			
+			// Check if it's a normal card or a field card
+			if (game.getCardOnMouse().getType() == CardModel.CREATURE && type == CardModel.CREATURE) {
+				playCard(game, game.getCardOnMouse(), true);
+			} else if (game.getCardOnMouse().getType() == CardModel.FIELD && type == CardModel.FIELD) {
+				playCard(game, game.getCardOnMouse(), true);
+			}
 		}
 	}
 	
@@ -42,6 +50,12 @@ public class Slot {
 		this.setCard(card);
 		card.setPlayed(true);
 		game.setCardOnMouse(null);
+		
+		// If it's a field card, it won't fight the cards around it
+		if (card.getType() == CardModel.FIELD) {
+			game.getMatch().passTurn();
+			return;
+		}
 		
 		// Get the cards around it
 		Slot leftSlot, rightSlot, upSlot, downSlot;
@@ -166,6 +180,10 @@ public class Slot {
 
 	public void setCard(Card card) {
 		this.card = card;
+	}
+	
+	public int getType() {
+		return type;
 	}
 }
 

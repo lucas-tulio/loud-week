@@ -1,9 +1,7 @@
 package com.lucasdnd.loudweek.gameplay;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.Resources;
 
@@ -170,5 +168,9 @@ public class Card {
 
 	public void setPlayed(boolean played) {
 		this.played = played;
+	}
+
+	public int getType() {
+		return type;
 	}
 }
