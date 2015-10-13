@@ -3,7 +3,8 @@ package com.lucasdnd.loudweek.gameplay;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Card textures: the blue one and the red one
+ * Card textures: the blue one and the red one.
+ * 
  * @author lucasdnd
  *
  */

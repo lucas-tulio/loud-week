@@ -9,6 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lucasdnd.loudweek.Resources;
 import com.lucasdnd.loudweek.screens.MatchScreen;
 
+/**
+ * The game board, where cards are played.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Board {
 	
 	private float x, y;

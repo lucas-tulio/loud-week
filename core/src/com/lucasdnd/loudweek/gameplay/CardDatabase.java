@@ -6,7 +6,9 @@ import java.util.Random;
 import com.lucasdnd.loudweek.Resources;
 
 /**
- * This kinda sucks, but I have no time
+ * This is where we keep all the game cards as CardModels. We should use some kind of text file in the future
+ * to make it easier to change these things.
+ * 
  * @author lucasdnd
  *
  */

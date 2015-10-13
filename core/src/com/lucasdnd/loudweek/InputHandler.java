@@ -3,6 +3,12 @@ package com.lucasdnd.loudweek;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
+/**
+ * I created this InputProcessor to make it simpler to listen to mouse clicks.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class InputHandler implements InputProcessor {
 	
 	public boolean leftMouseDown, leftMouseJustClicked, rightMouseDown, rightMouseJustClicked;

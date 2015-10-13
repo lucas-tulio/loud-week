@@ -5,6 +5,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.Resources;
 
+/**
+ * The game Card. It can be createdy by passing a CardModel object.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Card {
 	
 	// Card data

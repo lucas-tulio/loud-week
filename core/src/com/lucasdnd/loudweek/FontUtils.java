@@ -2,6 +2,12 @@ package com.lucasdnd.loudweek;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Use this class just to make it simpler to draw text with shadow, align, etc.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class FontUtils {
 	
 	private SpriteBatch fontBatch;

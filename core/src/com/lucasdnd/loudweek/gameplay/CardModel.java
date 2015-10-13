@@ -1,7 +1,8 @@
 package com.lucasdnd.loudweek.gameplay;
 
 /**
- * The card model
+ * The card data model.
+ * 
  * @author lucasdnd
  *
  */

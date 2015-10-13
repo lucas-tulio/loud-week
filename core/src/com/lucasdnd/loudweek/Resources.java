@@ -5,6 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.lucasdnd.loudweek.gameplay.CardTexture;
 
+/**
+ * Loads Resources and makes them available for the rest of the project.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Resources {
 	private static Resources instance;
 	public static Resources get() {

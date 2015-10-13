@@ -7,6 +7,12 @@ import com.badlogic.gdx.utils.Align;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.screens.MatchScreen;
 
+/**
+ * This Class controls the match flow and end game conditions.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Match {
 	
 	private Player humanPlayer;

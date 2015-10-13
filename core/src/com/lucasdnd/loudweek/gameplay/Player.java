@@ -8,6 +8,12 @@ import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.screens.MatchScreen;
 
+/**
+ * This class represents the Players (human or AI). Maybe we should have a superclass for these guys. Maybe not.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Player {
 	
 	// Position

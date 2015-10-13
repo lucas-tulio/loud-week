@@ -7,6 +7,12 @@ import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.screens.MatchScreen;
 
+/**
+ * An slot where a Card can be played on. The Board has 9 creature slots and 2 field card slots.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Slot {
 	
 	private int boardX, boardY;
