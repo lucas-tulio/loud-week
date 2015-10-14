@@ -18,10 +18,10 @@ public class CardModel {
 	
 	protected int strength, defense, agility, life;	// The 4 basic attributes
 	protected CardTexture cardTexture;
-	protected boolean humanOwner;	// Tells if the player owns this card or not
+	protected boolean playerHasInCollection;	// Tells if the player owns this card or not
 	
 	public CardModel(int id, String name, int type, int strength, int defense,
-			int agility, int life, String text, CardTexture cardTexture, boolean humanOwner) {
+			int agility, int life, String text, CardTexture cardTexture, boolean playerHasInCollection) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,6 +32,52 @@ public class CardModel {
 		this.life = life;
 		this.text = text;
 		this.cardTexture = cardTexture;
-		this.humanOwner = humanOwner;
+		this.playerHasInCollection = playerHasInCollection;
 	}
+
+	public boolean isPlayerHasInCollection() {
+		return playerHasInCollection;
+	}
+
+	public void setPlayerHasInCollection(boolean playerHasInCollection) {
+		this.playerHasInCollection = playerHasInCollection;
+	}
+
+	public CardTexture getCardTexture() {
+		return cardTexture;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public int getStrength() {
+		return strength;
+	}
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public int getAgility() {
+		return agility;
+	}
+
+	public int getLife() {
+		return life;
+	}
+	
+	
 }

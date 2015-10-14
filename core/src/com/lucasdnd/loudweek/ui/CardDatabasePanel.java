@@ -1,13 +1,13 @@
 package com.lucasdnd.loudweek.ui;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.lucasdnd.loudweek.FontUtils;
+import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.gameplay.Card;
 import com.lucasdnd.loudweek.gameplay.CardDatabase;
 import com.lucasdnd.loudweek.gameplay.CardModel;
@@ -24,28 +24,22 @@ public class CardDatabasePanel {
 	private final float margin = 30f;
 	
 	private FontUtils font;
+	private SpriteBatch batch;
 	private ShapeRenderer uiShapeRenderer;
 	
 	private int currentPage;
 	private Button nextPageButton, previousPageButton;
 	
-	private ArrayList<Card> cards;
-	
 	public CardDatabasePanel() {
 		
 		// Basic objects
 		font = new FontUtils();
+		batch = new SpriteBatch();
 		uiShapeRenderer = new ShapeRenderer();
 		nextPageButton = new Button(">");
 		previousPageButton = new Button("<");
 		
 		// Screen position
-		
-		// Cards
-		cards = new ArrayList<Card>();
-		for (CardModel cm : CardDatabase.get().cards) {
-			cards.add(new Card(cm, false));
-		}
 	}
 	
 	public void update() {
@@ -61,11 +55,21 @@ public class CardDatabasePanel {
 		Gdx.gl.glClearColor(1f, 1f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		uiShapeRenderer.begin(ShapeType.Line);
-		uiShapeRenderer.setColor(Color.BLACK);
-		uiShapeRenderer.rect(x, y, width, height);
-		uiShapeRenderer.end();
+		if (LoudWeek.debug) {
+			uiShapeRenderer.begin(ShapeType.Line);
+			uiShapeRenderer.setColor(Color.BLACK);
+			uiShapeRenderer.rect(x, y, width, height);
+			uiShapeRenderer.end();
+		}		
 		
-		
+		batch.begin();
+		for (CardModel cm : CardDatabase.get().cardModels) {
+			if (cm.isPlayerHasInCollection()) {
+				batch.draw(cm.getCardTexture().blue, x, y);
+			} else {
+				batch.draw(cm.getCardTexture().red, x, y);
+			}
+		}
+		batch.end();
 	}
 }
