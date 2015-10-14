@@ -34,6 +34,15 @@ public class CardDatabase {
 		
 		cardModels.add(new CardModel(5, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardOne,     true));
 		cardModels.add(new CardModel(6, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardTwo,     true));
+		
+		cardModels.add(new CardModel(7, "Abeelha",           CardModel.CREATURE, 2, 1, 5, 3, "", Resources.get().abeelhaFofo, true));
+		cardModels.add(new CardModel(8, "Dragonsai",         CardModel.CREATURE, 5, 2, 3, 3, "", Resources.get().dragonsai,   false));
+		cardModels.add(new CardModel(9, "Golem de Túmulos",  CardModel.CREATURE, 3, 3, 2, 5, "", Resources.get().golem,       true));
+		cardModels.add(new CardModel(10, "Soldado Ent",       CardModel.CREATURE, 3, 4, 3, 3, "", Resources.get().ent,         true));
+		cardModels.add(new CardModel(11, "Podridão Sórdida",  CardModel.CREATURE, 4, 3, 2, 4, "", Resources.get().elemental,   true));
+		
+		cardModels.add(new CardModel(12, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardOne,     true));
+		cardModels.add(new CardModel(13, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardTwo,     true));
 	}
 	
 	public CardModel getRandomCardModel() {

@@ -21,7 +21,7 @@ import com.lucasdnd.loudweek.gameplay.CardModel;
 public class CardDatabasePanel {
 	
 	private float x, y, width, height;
-	private final float margin = 30f;
+	private final float separation = 32f;
 	
 	private FontUtils font;
 	private SpriteBatch batch;
@@ -30,23 +30,23 @@ public class CardDatabasePanel {
 	private int currentPage;
 	private Button nextPageButton, previousPageButton;
 	
-	public CardDatabasePanel() {
+	public CardDatabasePanel(float x, float y) {
+		
+		this.x = x;
+		this.y = y;
+		width = Card.cardWidth * 3 + separation * 2;
+		height = Card.cardHeight * 3 + separation * 2;
 		
 		// Basic objects
 		font = new FontUtils();
 		batch = new SpriteBatch();
 		uiShapeRenderer = new ShapeRenderer();
 		nextPageButton = new Button(">");
-		previousPageButton = new Button("<");
-		
-		// Screen position
+		previousPageButton = new Button("<");		
 	}
 	
 	public void update() {
-		x = margin;
-		y = -margin + 38f; // plz don't
-		width = Card.cardWidth * 3 + margin * 2;
-		height = Card.cardHeight * 3 + margin * 2;
+		
 	}
 	
 	public void render() {
@@ -55,19 +55,21 @@ public class CardDatabasePanel {
 		Gdx.gl.glClearColor(1f, 1f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		if (LoudWeek.debug) {
-			uiShapeRenderer.begin(ShapeType.Line);
-			uiShapeRenderer.setColor(Color.BLACK);
-			uiShapeRenderer.rect(x, y, width, height);
-			uiShapeRenderer.end();
-		}		
-		
+		// Render cards
 		batch.begin();
-		for (CardModel cm : CardDatabase.get().cardModels) {
+		final int cardsPerPage = 9;
+		for (int i = 0; i < cardsPerPage; i++) {
+			
+			CardModel cm = CardDatabase.get().cardModels.get(i + (cardsPerPage * currentPage));
+			
+			float posX = x + Card.cardWidth * (i % 3) + separation * (i % 3);
+			float posY = (y - Card.cardHeight * (i / 3)) - separation / 2f * (i / 3) - Card.cardHeight;
 			if (cm.isPlayerHasInCollection()) {
-				batch.draw(cm.getCardTexture().blue, x, y);
+				batch.setColor(Color.WHITE);
+				batch.draw(cm.getCardTexture().blue, posX, posY);
 			} else {
-				batch.draw(cm.getCardTexture().red, x, y);
+				batch.setColor(Color.DARK_GRAY);
+				batch.draw(cm.getCardTexture().red, posX, posY);
 			}
 		}
 		batch.end();

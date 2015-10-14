@@ -2,6 +2,7 @@ package com.lucasdnd.loudweek.screens;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.gameplay.Card;
@@ -26,7 +27,7 @@ public class DeckBuildingScreen implements Screen {
 	@Override
 	public void show() {
 		startButton = new Button("Start");
-		cardDatabasePanel = new CardDatabasePanel();
+		cardDatabasePanel = new CardDatabasePanel(64f, Gdx.graphics.getHeight() - 32f);
 		hand = new ArrayList<Card>();
 	}
 	
