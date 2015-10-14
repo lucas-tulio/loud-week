@@ -9,7 +9,14 @@ import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.Resources;
 
+/**
+ * Text button widget. Supports hover, clicks and auto resize according to the text size.
+ * 
+ * @author lucasdnd
+ *
+ */
 public class Button {
+	
 	protected float x, y, width;
 	protected float height = 32f;
 	private final float textPaddingX = 2f;

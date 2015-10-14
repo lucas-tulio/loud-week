@@ -19,21 +19,21 @@ public class CardDatabase {
 		if (instance == null) {
 			instance = new CardDatabase();
 		}
-		return instance; 
+		return instance;
 	}
 	
-	private static ArrayList<CardModel> cards;
+	public ArrayList<CardModel> cards;
 	
 	private CardDatabase() {
 		cards = new ArrayList<CardModel>();
-		cards.add(new CardModel(0, "Abeelha",           CardModel.CREATURE, 2, 1, 5, 3, "", Resources.get().abeelhaFofo));
-		cards.add(new CardModel(1, "Dragonsai",         CardModel.CREATURE, 5, 2, 3, 3, "", Resources.get().dragonsai));
-		cards.add(new CardModel(2, "Golem de Túmulos",  CardModel.CREATURE, 3, 3, 2, 5, "", Resources.get().golem));
-		cards.add(new CardModel(3, "Soldado Ent",       CardModel.CREATURE, 3, 4, 3, 3, "", Resources.get().ent));
-		cards.add(new CardModel(4, "Podridão Sórdida",  CardModel.CREATURE, 4, 3, 2, 4, "", Resources.get().elemental));
+		cards.add(new CardModel(0, "Abeelha",           CardModel.CREATURE, 2, 1, 5, 3, "", Resources.get().abeelhaFofo, true));
+		cards.add(new CardModel(1, "Dragonsai",         CardModel.CREATURE, 5, 2, 3, 3, "", Resources.get().dragonsai,   false));
+		cards.add(new CardModel(2, "Golem de Túmulos",  CardModel.CREATURE, 3, 3, 2, 5, "", Resources.get().golem,       true));
+		cards.add(new CardModel(3, "Soldado Ent",       CardModel.CREATURE, 3, 4, 3, 3, "", Resources.get().ent,         true));
+		cards.add(new CardModel(4, "Podridão Sórdida",  CardModel.CREATURE, 4, 3, 2, 4, "", Resources.get().elemental,   true));
 		
-		cards.add(new CardModel(5, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardOne));
-		cards.add(new CardModel(6, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardTwo));
+		cards.add(new CardModel(5, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardOne,     true));
+		cards.add(new CardModel(6, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardTwo,     true));
 	}
 	
 	public CardModel getRandomCardModel() {

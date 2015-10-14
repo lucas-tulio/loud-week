@@ -1,18 +1,51 @@
 package com.lucasdnd.loudweek.screens;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Screen;
+import com.lucasdnd.loudweek.LoudWeek;
+import com.lucasdnd.loudweek.gameplay.Card;
+import com.lucasdnd.loudweek.ui.Button;
+import com.lucasdnd.loudweek.ui.CardDatabasePanel;
 
 public class DeckBuildingScreen implements Screen {
+	
+	private LoudWeek game;
+	
+	private Card cardOnHand;
+	
+	// Deck building stuff
+	private Button startButton;
+	private CardDatabasePanel cardDatabasePanel;
+	private ArrayList<Card> hand;
 
+	public DeckBuildingScreen(LoudWeek game) {
+		this.game = game;
+	}
+	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		startButton = new Button("Start");
+		cardDatabasePanel = new CardDatabasePanel();
+		hand = new ArrayList<Card>();
+	}
+	
+	public void update() {
 		
 	}
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		this.update();
+		
+		// Card database
+		cardDatabasePanel.render();
+		
+		// Player hand
+		
+		
+		// UI stuff
+		startButton.render();
 		
 	}
 

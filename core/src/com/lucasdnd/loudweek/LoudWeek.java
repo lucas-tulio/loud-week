@@ -32,8 +32,8 @@ public class LoudWeek extends Game {
 		inputHandler = new InputHandler();
 		Gdx.input.setInputProcessor(inputHandler);
 		
-		gameScreen = new MatchScreen(this);
-		this.setScreen(gameScreen);
+		deckBuildingScreen = new DeckBuildingScreen(this);
+		this.setScreen(deckBuildingScreen);
 		
 	}
 	
@@ -54,7 +54,7 @@ public class LoudWeek extends Game {
 		super.render();
 		
 		this.update();
-		this.getScreen().render(16f);
+		this.getScreen().render(Gdx.graphics.getDeltaTime());
 	}
 	
 	public InputHandler getInputHandler() {

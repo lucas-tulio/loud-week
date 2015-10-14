@@ -6,7 +6,7 @@ import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.Resources;
 
 /**
- * The game Card. It can be createdy by passing a CardModel object.
+ * The game Card. It can be created by passing a CardModel object.
  * 
  * @author lucasdnd
  *
@@ -90,6 +90,12 @@ public class Card {
 		}
 	}
 	
+	/**
+	 * Renders the card texture (either blue or red)
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void renderCard(float x, float y) {
 		
 		batch.begin();
@@ -101,6 +107,12 @@ public class Card {
 		batch.end();
 	}
 	
+	/**
+	 * Renders the card numbers
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void renderCardNumbers(float x, float y) {
 		
 		if (type == CardModel.FIELD) {

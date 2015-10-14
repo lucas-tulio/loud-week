@@ -12,6 +12,7 @@ import com.lucasdnd.loudweek.gameplay.CardTexture;
  *
  */
 public class Resources {
+	
 	private static Resources instance;
 	public static Resources get() {
 		if (instance == null) {
