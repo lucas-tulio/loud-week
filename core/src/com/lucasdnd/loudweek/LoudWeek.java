@@ -20,7 +20,7 @@ public class LoudWeek extends Game {
 	public static boolean debug = false;
 	
 	// Screens
-	private MatchScreen gameScreen;
+	private MatchScreen matchScreen;
 	private DeckBuildingScreen deckBuildingScreen;
 	
 	// Input
@@ -32,8 +32,11 @@ public class LoudWeek extends Game {
 		inputHandler = new InputHandler();
 		Gdx.input.setInputProcessor(inputHandler);
 		
-		deckBuildingScreen = new DeckBuildingScreen(this);
-		this.setScreen(deckBuildingScreen);
+//		deckBuildingScreen = new DeckBuildingScreen(this);
+//		this.setScreen(deckBuildingScreen);
+		
+		matchScreen = new MatchScreen(this);
+		this.setScreen(matchScreen);
 		
 	}
 	

@@ -19,7 +19,7 @@ public class Player {
 	// Position
 	private float x, y;
 	private final float cardOffsetX = 30f;
-	private final float fullHandWidth = Card.cardWidth + (4 * cardOffsetX);
+	private float fullHandWidth;
 	
 	// Cards
 	boolean mouseOverHand = false;
@@ -53,13 +53,17 @@ public class Player {
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
 		} else {
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
 			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
 		}
+		
+		fullHandWidth = Card.cardWidth + ((hand.size() - 1) * cardOffsetX);
 		
 		if (position == Position.upperLeft) {
 			x = 0f;
@@ -72,6 +76,11 @@ public class Player {
 		font = new FontUtils();
 	}
 	
+	/**
+	 * Update player controls
+	 * 
+	 * @param matchScreen
+	 */
 	public void update(MatchScreen matchScreen) {
 		
 		if (position != Position.lowerRight) {
@@ -115,6 +124,11 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Draw stuff
+	 * 
+	 * @param matchScreen
+	 */
 	public void render(MatchScreen matchScreen) {
 		
 		if (isHuman) {
