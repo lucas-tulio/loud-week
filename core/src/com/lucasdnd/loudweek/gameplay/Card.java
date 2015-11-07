@@ -78,7 +78,6 @@ public class Card {
 		} else {
 			
 			// Cards on each player's hand
-			
 			if (humanOwner) {
 				renderCard(x, y);
 				renderCardNumbers(x, y);
@@ -191,4 +190,14 @@ public class Card {
 	public int getType() {
 		return type;
 	}
+
+	public CardTexture getCardTexture() {
+		return cardTexture;
+	}
+
+	public void setCardTexture(CardTexture cardTexture) {
+		this.cardTexture = cardTexture;
+	}
+	
+	
 }
