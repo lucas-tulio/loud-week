@@ -42,6 +42,7 @@ public class MatchScreen implements Screen {
 		board.update(this);
 		match.update(this);
 		
+		// Drop card on mouse (put back)
 		if (cardOnMouse != null) {
 			cardOnMouse.update();
 			if (game.getInputHandler().rightMouseJustClicked) {

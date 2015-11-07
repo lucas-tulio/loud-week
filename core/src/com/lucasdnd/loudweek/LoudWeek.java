@@ -67,6 +67,13 @@ public class LoudWeek extends Game {
 	public boolean isDebug() {
 		return debug;
 	}
-	
+
+	public MatchScreen getMatchScreen() {
+		return matchScreen;
+	}
+
+	public DeckBuildingScreen getDeckBuildingScreen() {
+		return deckBuildingScreen;
+	}
 	
 }

@@ -64,4 +64,18 @@ public class CardDatabase {
 		}
 		return fieldCards.get(new Random().nextInt(fieldCards.size()));
 	}
+	
+	/**
+	 * Given a cardId, returns the CardModel
+	 * @param cardId
+	 * @return
+	 */
+	public CardModel findModelByCardId(int cardId) {
+		for (CardModel c : cardModels) {
+			if (c.getId() == cardId) {
+				return c;
+			}
+		}
+		return null;
+	}
 }

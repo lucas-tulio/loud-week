@@ -3,6 +3,7 @@ package com.lucasdnd.loudweek.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.gameplay.Card;
 import com.lucasdnd.loudweek.ui.Button;
@@ -13,7 +14,7 @@ public class DeckBuildingScreen implements Screen {
 	
 	private LoudWeek game;
 	
-	private Card cardOnHand;
+	private Card cardOnMouse;
 	
 	// Deck building stuff
 	private Button startButton;
@@ -29,12 +30,27 @@ public class DeckBuildingScreen implements Screen {
 	@Override
 	public void show() {
 		startButton = new Button("Start");
-		cardDatabasePanel = new CardDatabasePanel(margin * 2f, Gdx.graphics.getHeight() - margin);
+		cardDatabasePanel = new CardDatabasePanel(margin * 4f, Gdx.graphics.getHeight() - margin);
 		playerHandPanel = new PlayerHandPanel(Gdx.graphics.getWidth() - Card.cardWidth * 2 - margin * 2, Gdx.graphics.getHeight() - margin);
 	}
 	
 	public void update() {
+
+		// Card on mouse update
+		if (cardOnMouse != null) {
+			
+			cardOnMouse.update();
+			
+			// Put card back
+			if (game.getInputHandler().rightMouseJustClicked) {
+				cardDatabasePanel.putCardBack(cardOnMouse);
+				playerHandPanel.putCardBack(cardOnMouse);
+				cardOnMouse = null;
+			}
+		}
 		
+		cardDatabasePanel.update(game);
+		playerHandPanel.update(game);
 	}
 
 	@Override
@@ -45,18 +61,22 @@ public class DeckBuildingScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		// Card database
-		cardDatabasePanel.render();
+		cardDatabasePanel.render(game);
 		
 		// Player hand
-		playerHandPanel.render();
+		playerHandPanel.render(game);
 		
 		// UI stuff
 		startButton.render();
 		
-		if (cardOnHand != null) {
-			cardOnHand.render(Gdx.input.getX(), Gdx.input.getY());
+		if (cardOnMouse != null) {
+			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth / 2f, Gdx.graphics.getHeight() - Gdx.input.getY() - Card.cardHeight / 2f);
 		}
 		
+	}
+	
+	public void setCardOnMouse(Card cardOnMouse) {
+		this.cardOnMouse = cardOnMouse;
 	}
 
 	@Override

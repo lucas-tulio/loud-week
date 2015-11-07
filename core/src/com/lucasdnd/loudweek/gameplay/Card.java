@@ -1,5 +1,6 @@
 package com.lucasdnd.loudweek.gameplay;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.lucasdnd.loudweek.FontUtils;
@@ -31,6 +32,7 @@ public class Card {
 	private FontUtils font;
 	private SpriteBatch batch;
 	private CardTexture cardTexture;
+	private Color tintColor;
 	
 	private final float offsetRightX = -4f;
 	private final float offsetRightY = -1f;
@@ -98,6 +100,11 @@ public class Card {
 	private void renderCard(float x, float y) {
 		
 		batch.begin();
+		if (tintColor != null) {
+			batch.setColor(tintColor);
+		} else {
+			batch.setColor(Color.WHITE);
+		}
 		if (humanOwner) {
 			batch.draw(cardTexture.blue, x, y);
 		} else {
@@ -114,7 +121,7 @@ public class Card {
 	 */
 	private void renderCardNumbers(float x, float y) {
 		
-		if (type == CardModel.FIELD) {
+		if (type == CardModel.FIELD || tintColor != null) {
 			return;
 		}
 		
@@ -143,6 +150,10 @@ public class Card {
 				true);
 	}
 
+	public int getId() {
+		return id;
+	}
+	
 	public int getStrength() {
 		return strength;
 	}
@@ -198,6 +209,13 @@ public class Card {
 	public void setCardTexture(CardTexture cardTexture) {
 		this.cardTexture = cardTexture;
 	}
+
+	public void setTintColor(Color tintColor) {
+		this.tintColor = tintColor;
+	}
 	
+	public void removeTintColor() {
+		this.tintColor = null;
+	}
 	
 }
