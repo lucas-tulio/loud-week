@@ -45,7 +45,23 @@ public class CardDatabase {
 		cardModels.add(new CardModel(13, "Field Card One",  CardModel.FIELD, 0, 0, 0, 0, "", Resources.get().fieldCardTwo,     true));
 	}
 	
-	public CardModel getRandomCardModel() {
-		return cardModels.get(new Random().nextInt(cardModels.size()));
+	public CardModel getRandomCreatureCardModel() {
+		ArrayList<CardModel> creatureCards = new ArrayList<CardModel>();
+		for (CardModel c : cardModels) {
+			if (c.type == CardModel.CREATURE) {
+				creatureCards.add(c);
+			}
+		}
+		return creatureCards.get(new Random().nextInt(creatureCards.size()));
+	}
+	
+	public CardModel getRandomFieldCardModel() {
+		ArrayList<CardModel> fieldCards = new ArrayList<CardModel>();
+		for (CardModel c : cardModels) {
+			if (c.type == CardModel.FIELD) {
+				fieldCards.add(c);
+			}
+		}
+		return fieldCards.get(new Random().nextInt(fieldCards.size()));
 	}
 }

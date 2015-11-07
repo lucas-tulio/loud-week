@@ -48,19 +48,19 @@ public class Player {
 		hand = new LinkedList<Card>();
 		
 		if (isHuman) {
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), true));
+			hand.add(new Card(CardDatabase.get().getRandomFieldCardModel(), true));
 		} else {
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
-			hand.add(new Card(CardDatabase.get().getRandomCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomCreatureCardModel(), false));
+			hand.add(new Card(CardDatabase.get().getRandomFieldCardModel(), false));
 		}
 		
 		fullHandWidth = Card.cardWidth + ((hand.size() - 1) * cardOffsetX);
