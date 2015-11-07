@@ -137,5 +137,9 @@ public class DeckBuildingScreen implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Card getCardOnMouse() {
+		return cardOnMouse;
+	}
 
 }

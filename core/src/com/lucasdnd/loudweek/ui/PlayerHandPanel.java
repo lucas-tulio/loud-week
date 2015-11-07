@@ -1,5 +1,6 @@
 package com.lucasdnd.loudweek.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,6 +10,8 @@ import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.Resources;
 import com.lucasdnd.loudweek.gameplay.Card;
+import com.lucasdnd.loudweek.gameplay.CardDatabase;
+import com.lucasdnd.loudweek.gameplay.CardModel;
 
 public class PlayerHandPanel {
 	
@@ -47,7 +50,40 @@ public class PlayerHandPanel {
 		
 		InputHandler input = game.getInputHandler();
 		
-		
+		// Placing a card
+		if (input.leftMouseJustClicked && game.getDeckBuildingScreen().getCardOnMouse() != null) {
+			
+			// Check if there's room
+			int emptyCardSlots = 0;
+			for (Card c : cards) {
+				if (c == null) {
+					emptyCardSlots++;
+				}
+			}
+			if (emptyCardSlots == 0) {
+				return;
+			}
+			
+			// Place card on hand
+			float mouseX = Gdx.input.getX();
+			float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+			
+			for (int i = 0; i < maxCardsInHand; i++) {
+				
+				float posX = x + Card.cardWidth * (i % 2) + marginX * (i % 2);
+				float posY = (y - Card.cardHeight * (i / 2)) - marginY / 2f * (i / 2) - Card.cardHeight;
+				
+				if (mouseX >= posX && mouseX <= posX + Card.cardWidth &&
+					mouseY >= posY && mouseY <= posY + Card.cardHeight) {
+					
+					Card cardInSlot = cards[i];
+					if (cardInSlot == null) {
+						cards[i] = game.getDeckBuildingScreen().getCardOnMouse();
+						game.getDeckBuildingScreen().setCardOnMouse(null);
+					}
+				}
+			}
+		}
 		
 	}
 	
