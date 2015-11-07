@@ -3,10 +3,10 @@ package com.lucasdnd.loudweek.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.gameplay.Card;
 import com.lucasdnd.loudweek.ui.Button;
+import com.lucasdnd.loudweek.ui.ButtonClickListener;
 import com.lucasdnd.loudweek.ui.CardDatabasePanel;
 import com.lucasdnd.loudweek.ui.PlayerHandPanel;
 
@@ -29,9 +29,34 @@ public class DeckBuildingScreen implements Screen {
 	
 	@Override
 	public void show() {
+		cardDatabasePanel = new CardDatabasePanel(margin * 4f, Gdx.graphics.getHeight() - margin * 1.5f);
+		playerHandPanel = new PlayerHandPanel(Gdx.graphics.getWidth() - Card.cardWidth * 2 - margin * 4.5f, Gdx.graphics.getHeight() - margin * 1.5f);
+		
+		final float halfTheDistanceBetweenTheEndOfThePlayerHandPanelToTheEndOfTheScreen = 17f; // ayy lmao
 		startButton = new Button("Start");
-		cardDatabasePanel = new CardDatabasePanel(margin * 4f, Gdx.graphics.getHeight() - margin);
-		playerHandPanel = new PlayerHandPanel(Gdx.graphics.getWidth() - Card.cardWidth * 2 - margin * 2, Gdx.graphics.getHeight() - margin);
+		startButton.setX(playerHandPanel.getX() + playerHandPanel.getWidth() + halfTheDistanceBetweenTheEndOfThePlayerHandPanelToTheEndOfTheScreen);
+		startButton.setY(Gdx.graphics.getHeight() - playerHandPanel.getY() / 2f - startButton.getHeight() / 2f - playerHandPanel.getMarginY() / 2f - 4f);
+		
+		startButton.setClickListener(new ButtonClickListener() {
+
+			@Override
+			public void onClick() {
+				
+				// Before starting the game, check if the Player has all 6 cards
+				boolean canStart = true;
+				for (Card c : playerHandPanel.getCards()) {
+					if (c == null) {
+						canStart = false;
+					}
+				}
+				
+				if (canStart) {
+					game.startMatchScreen();
+				} else {
+					
+				}
+			}
+		});
 	}
 	
 	public void update() {
@@ -49,8 +74,11 @@ public class DeckBuildingScreen implements Screen {
 			}
 		}
 		
+		// Panels
 		cardDatabasePanel.update(game);
 		playerHandPanel.update(game);
+		
+		startButton.update(game);
 	}
 
 	@Override
@@ -69,6 +97,7 @@ public class DeckBuildingScreen implements Screen {
 		// UI stuff
 		startButton.render();
 		
+		// Card on Mouse
 		if (cardOnMouse != null) {
 			cardOnMouse.render(Gdx.input.getX() - Card.cardWidth / 2f, Gdx.graphics.getHeight() - Gdx.input.getY() - Card.cardHeight / 2f);
 		}

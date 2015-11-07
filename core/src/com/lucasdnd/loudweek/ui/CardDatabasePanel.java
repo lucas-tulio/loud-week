@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.Align;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
@@ -23,8 +25,8 @@ public class CardDatabasePanel {
 	
 	// Layout
 	private float x, y, width, height;
-	private final float marginX = 22f;
-	private final float marginY = 16f;
+	private final float marginX = 12f;
+	private final float marginY = 12f;
 	
 	// Rendering
 	private FontUtils font;
@@ -80,6 +82,9 @@ public class CardDatabasePanel {
 					mouseY >= posY && mouseY <= posY + Card.cardHeight) {
 					
 					CardModel cm = CardDatabase.get().cardModels.get(i + (cardsPerPage * currentPage));
+					if (cm.isPlayerHasInCollection() == false) {
+						return;	// Pick up only if the player has it in his collection
+					}
 					Card pickedUpCard = new Card(cm, true);
 					this.pickedUpCard = pickedUpCard;
 					game.getDeckBuildingScreen().setCardOnMouse(pickedUpCard);
@@ -113,6 +118,22 @@ public class CardDatabasePanel {
 			}
 		}
 		batch.end();
+		
+		// Render text
+		font.drawWhiteFont("Sua coleção", x, y + marginY * 3f, true, Align.center, (int)width);
+		
+		// Placeholder: card types
+		uiShapeRenderer.begin(ShapeType.Filled);
+		uiShapeRenderer.setColor(new Color(0.2f, 0.6f, 0.3f, 1));
+		float typeRectHeight = 300f;
+		uiShapeRenderer.rect(x - marginX * 8f, y / 2f - typeRectHeight / 2f + marginY / 2f, marginX * 3f, typeRectHeight);
+		
+		// Placeholder: previous page button
+		float buttonSize = 40f;
+		uiShapeRenderer.rect(x - marginX * 4f, y / 2f - buttonSize / 2f + marginY / 2f, buttonSize, buttonSize);
+		uiShapeRenderer.rect(x + width + marginX / 2f + 2f, y / 2f - buttonSize / 2f + marginY / 2f, buttonSize, buttonSize);
+		
+		uiShapeRenderer.end();
 	}
 
 	/**

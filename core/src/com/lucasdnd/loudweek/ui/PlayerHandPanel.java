@@ -3,6 +3,7 @@ package com.lucasdnd.loudweek.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Align;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
@@ -13,8 +14,8 @@ public class PlayerHandPanel {
 	
 	// Layout
 	private float x, y, width, height;
-	private final float marginX = 22f;
-	private final float marginY = 16f;
+	private final float marginX = 12f;
+	private final float marginY = 12f;
 	
 	// Render
 	private FontUtils font;
@@ -22,7 +23,7 @@ public class PlayerHandPanel {
 	private ShapeRenderer uiShapeRenderer;
 	
 	private Card[] cards;
-	private final int cardsInHand = 6;
+	private final int maxCardsInHand = 6;
 	private Card pickedUpCard;	// This will keep a reference to the card the Player picked up from here.
 								// If the cardOnMouse needs to be put back, we know it came from here
 	private int pickedUpCardSlot = 0;	// Where the picked up card was
@@ -31,7 +32,7 @@ public class PlayerHandPanel {
 		
 		this.x = x;
 		this.y = y;
-		width = Card.cardWidth * 3 + marginX * 2;
+		width = Card.cardWidth * 2 + marginX;
 		height = Card.cardHeight * 3 + marginY * 2;
 		
 		// Basic objects
@@ -39,7 +40,7 @@ public class PlayerHandPanel {
 		batch = new SpriteBatch();
 		uiShapeRenderer = new ShapeRenderer();
 		
-		cards = new Card[cardsInHand];
+		cards = new Card[maxCardsInHand];
 	}
 	
 	public void update(LoudWeek game) {
@@ -70,6 +71,9 @@ public class PlayerHandPanel {
 			
 		}
 		batch.end();
+		
+		// Render text
+		font.drawWhiteFont("Seu deck", x, y + marginY * 3f, true, Align.center, (int)width);
 	}
 	
 	/**
@@ -83,4 +87,52 @@ public class PlayerHandPanel {
 		}
 	}
 
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public float getMarginX() {
+		return marginX;
+	}
+
+	public float getMarginY() {
+		return marginY;
+	}
+
+	public Card[] getCards() {
+		return cards;
+	}
+	
+	public int getMaxCardsInHand() {
+		return maxCardsInHand;
+	}
+	
 }
