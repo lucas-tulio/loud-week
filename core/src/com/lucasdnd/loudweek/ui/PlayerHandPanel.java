@@ -77,8 +77,22 @@ public class PlayerHandPanel {
 					mouseY >= posY && mouseY <= posY + Card.cardHeight) {
 					
 					Card cardInSlot = cards[i];
+					Card cardOnMouse = game.getDeckBuildingScreen().getCardOnMouse();
+					
+					// Check if it's an available slot
 					if (cardInSlot == null) {
-						cards[i] = game.getDeckBuildingScreen().getCardOnMouse();
+						
+						// If it's a field card, check if there are no other in the hand
+						if (cardOnMouse.getType() == CardModel.FIELD) {
+							for (Card c : cards) {
+								if (c != null && c.getType() == CardModel.FIELD) {
+									return;
+								}
+							}
+						}
+						
+						// Place it!
+						cards[i] = cardOnMouse;
 						game.getDeckBuildingScreen().setCardOnMouse(null);
 					}
 				}
