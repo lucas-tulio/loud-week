@@ -3,14 +3,12 @@ package com.lucasdnd.loudweek.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.lucasdnd.loudweek.FontUtils;
 import com.lucasdnd.loudweek.InputHandler;
 import com.lucasdnd.loudweek.LoudWeek;
 import com.lucasdnd.loudweek.Resources;
 import com.lucasdnd.loudweek.gameplay.Card;
-import com.lucasdnd.loudweek.gameplay.CardDatabase;
 import com.lucasdnd.loudweek.gameplay.CardModel;
 
 public class PlayerHandPanel {
@@ -23,7 +21,6 @@ public class PlayerHandPanel {
 	// Render
 	private FontUtils font;
 	private SpriteBatch batch;
-	private ShapeRenderer uiShapeRenderer;
 	
 	private Card[] cards;
 	private final int maxCardsInHand = 6;
@@ -41,7 +38,6 @@ public class PlayerHandPanel {
 		// Basic objects
 		font = new FontUtils();
 		batch = new SpriteBatch();
-		uiShapeRenderer = new ShapeRenderer();
 		
 		cards = new Card[maxCardsInHand];
 	}
@@ -77,10 +73,11 @@ public class PlayerHandPanel {
 					mouseY >= posY && mouseY <= posY + Card.cardHeight) {
 					
 					Card cardInSlot = cards[i];
-					Card cardOnMouse = game.getDeckBuildingScreen().getCardOnMouse();
 					
 					// Check if it's an available slot
 					if (cardInSlot == null) {
+						
+						Card cardOnMouse = game.getDeckBuildingScreen().getCardOnMouse();
 						
 						// If it's a field card, check if there are no other in the hand
 						if (cardOnMouse.getType() == CardModel.FIELD) {
@@ -88,12 +85,13 @@ public class PlayerHandPanel {
 								if (c != null && c.getType() == CardModel.FIELD) {
 									return;
 								}
-							}
+							}	
 						}
 						
 						// Place it!
 						cards[i] = cardOnMouse;
 						game.getDeckBuildingScreen().setCardOnMouse(null);
+					
 					}
 				}
 			}
